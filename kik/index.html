@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kik · Arms &amp; Total Body</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f4f0; color: #1a1a1a; min-height: 100vh; }
+
+  .header { background: #1a1a1a; color: white; padding: 24px 20px 20px; }
+  .header-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 6px; }
+  .header-name { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+  .header-sub { font-size: 13px; color: #aaa; margin-top: 5px; line-height: 1.5; }
+
+  .tabs { display: flex; background: #111; border-bottom: 1px solid #333; }
+  .tab { flex: 1; padding: 13px 8px; text-align: center; font-size: 12px; font-weight: 600; color: #666; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; letter-spacing: 0.03em; }
+  .tab.active { color: white; border-bottom-color: white; }
+  .tab-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; margin-right: 5px; vertical-align: middle; }
+
+  .content { padding: 16px; }
+  .day-section { display: none; }
+  .day-section.active { display: block; }
+
+  .day-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 12px; }
+
+  .exercise-card { background: white; border-radius: 12px; padding: 14px 14px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .ex-info { flex: 1; }
+  .ex-name { font-size: 15px; font-weight: 600; color: #1a1a1a; margin-bottom: 3px; }
+  .ex-sets { font-size: 12px; color: #888; }
+
+  .demo-btn { display: flex; align-items: center; gap: 5px; padding: 8px 12px; background: #FF0000; border-radius: 8px; font-size: 12px; font-weight: 700; color: white; text-decoration: none; white-space: nowrap; flex-shrink: 0; letter-spacing: 0.02em; }
+  .play-icon { width: 0; height: 0; border-style: solid; border-width: 5px 0 5px 9px; border-color: transparent transparent transparent white; display: inline-block; }
+
+  .tip { background: white; border-left: 3px solid #1a1a1a; border-radius: 0 10px 10px 0; padding: 12px 14px; font-size: 13px; color: #555; margin-top: 14px; line-height: 1.6; }
+
+  .progress-note { background: #1a1a1a; color: white; border-radius: 12px; padding: 14px 16px; margin-top: 16px; font-size: 13px; line-height: 1.6; }
+  .progress-note strong { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #aaa; margin-bottom: 5px; }
+
+  .week-bar { display: flex; gap: 4px; padding: 16px; background: #1a1a1a; }
+  .week-pill { flex: 1; height: 4px; border-radius: 2px; background: #333; }
+  .week-pill.done { background: white; }
+  .week-pill.current { background: #888; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-tag">Jay PT · 4-Week Plan</div>
+  <div class="header-name">Kik</div>
+  <div class="header-sub">Arms &amp; total body · Beginner · 3&times;/week<br>Gym + Home</div>
+</div>
+
+<div class="week-bar">
+  <div class="week-pill current"></div>
+  <div class="week-pill"></div>
+  <div class="week-pill"></div>
+  <div class="week-pill"></div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('a')">
+    <span class="tab-dot" style="background:#60a5fa;"></span>Day A
+  </div>
+  <div class="tab" onclick="switchTab('b')">
+    <span class="tab-dot" style="background:#34d399;"></span>Day B
+  </div>
+  <div class="tab" onclick="switchTab('c')">
+    <span class="tab-dot" style="background:#f59e0b;"></span>Day C
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- DAY A -->
+  <div class="day-section active" id="tab-a">
+    <div class="day-label">Gym &middot; Full body + arms</div>
+
+    <div class="exercise-card">
+      <div class="ex-info">
+        <div class="ex-name">DB Goblet squat</div>
+        <div class="ex-sets">3 sets &middot; 12 reps</div>
+      </div>
+      <a class="demo-btn" href="https://www.youtube.com/results?search_query=goblet+squat+tutorial+beginner" target="_blank">
+        <span class="play-icon"></span> Demo
+      </a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="ex-info">
+        <div class="ex-name">Seated cable row</div>
+        <div class="ex-sets">3 sets &middot; 12 reps</div>
+      </div>
+      <a class="demo-btn" href="https://www.youtube.com/results?search_query=seated+cable+row+tutorial+form" target="_blank">
+        <span class="play-icon"></span> Demo
+      </a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="ex-info">
+        <div class="ex-name">DB Shoulder press</div>
+        <div class="ex-sets">3 sets &middot; 10 reps</div>
+      </div>
+      <a class="demo-btn" href="https://www.youtube.com/results?search_query=seated+dumbbell+shoulder+press+tutorial" target="_blank">
+        <span class="play-icon"></span> Demo
+      </a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="ex-info">
+        <div class="ex-name">DB Bicep curl</div>
+        <div class="ex-sets">3 sets &middot; 12 reps</div>
+      </div>
+      <a class="demo-btn" href="https://www.youtube.com/results?search_query=dumbbell+bicep+curl+tutorial+form" target="_blank">
+        <span class="play-icon"></span> Demo
+      </a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="ex-info">
+        <div class="ex-name">DB Overhead triceps extension</div>
+        <div class="ex-sets">3 sets &middot; 12 reps</div>
+      </div>
+      <a class="demo-btn" href="https://www.youtube.com/results?search_query=dumbbell+overhead+triceps+extension+tutorial" target="_blank">
+        <span class="play-icon"></span> Demo
+      </a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="ex-info">
+        <div class="ex-name">Dead bug</div>
+        <div class="ex-sets">3 sets &middot; 10 reps each side</div>
+      </div>
+      <a class="demo-btn" href="https://www.youtube.com/results?search_query=dead+bug+exercise+tutorial+core" target="_blank">
+        <span class="play-icon"></span> Demo
+      </a>
+    </div>
+
+    <div class="tip">Week 1 &mdash; learn the movements, keep it light. On the row, squeeze your shoulder blades together at the end of every rep, don't just pull with your arms.</div>
+  </div>
+
+  <!-- DAY B -->
+  <div class="day-section" id="tab-b">
+    <div class="day-label">Home &middot; Posture reset + bodyweight</div>
+
+    <div class="exercise-card">
+      <div class="ex-info">
+        <div class="ex-name">Band pull-apart</div>
+        <div class="ex-sets">3 sets &middot; 15 reps</div>
+      </div>
+      <a class="demo-btn" href="https://www.youtube.com/results?search_query=band+pull+apart+tutorial+posture" target="_blank">
+        <span class="play-icon"></span> Demo
+      </a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="ex-info">
+        <div class="ex-name">Wall slide</div>
+        <div class="ex-sets">3 sets &middot; 10 reps</div>
+      </div>
+      <a class="demo-btn" href="https://www.youtube.com/results?search_query=wall+slide+exercise+tutorial+shoulder+mobility" target="_blank">
+        <span class="play-icon"></span> Demo
+      </a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="ex-info">
+        <div class="ex-name">Bodyweight squat</div>
+        <div class="ex-sets">3 sets &middot; 15 reps</div>
+      </div>
+      <a class="demo-btn" href="https://www.youtube.com/results?search_query=bodyweight+squat+tutorial+form" target="_blank">
+        <span class="play-icon"></span> Demo
+      </a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="ex-info">
+        <div class="ex-name">Incline push-up</div>
+        <div class="ex-sets">3 sets &middot; 10 reps</div>
+      </div>
+      <a class="demo-btn" href="https://www.youtube.com/results?search_query=incline+push+up+tutorial+beginner" target="_blank">
+        <span class="play-icon"></span> Demo
+      </a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="ex-info">
+        <div class="ex-name">Glute bridge</div>
+        <div class="ex-sets">3 sets &middot; 15 reps</div>
+      </div>
+      <a class="demo-btn" href="https://www.youtube.com/results?search_query=glute+bridge+tutorial+form" target="_blank">
+        <span class="play-icon"></span> Demo
+      </a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="ex-info">
+        <div class="ex-name">Bird dog</div>
+        <div class="ex-sets">3 sets &middot; 10 reps each side</div>
+      </div>
+      <a class="demo-btn" href="https://www.youtube.com/results?search_query=bird+dog+exercise+tutorial+core" target="_blank">
+        <span class="play-icon"></span> Demo
+      </a>
+    </div>
+
+    <div class="tip">This is the "undo the desk" day &mdash; band pull-aparts and wall slides target exactly what tightens up from sitting all day. Go slow, hold the squeeze for a beat at the top.</div>
+  </div>
+
+  <!-- DAY C -->
+  <div class="day-section" id="tab-c">
+    <div class="day-label">Gym &middot; Arms isolation + accessory</div>
+
+    <div class="exercise-card">
+      <div class="ex-info">
+        <div class="ex-name">DB Romanian deadlift</div>
+        <div class="ex-sets">3 sets &middot; 12 reps</div>
+      </div>
+      <a class="demo-btn" href="https://www.youtube.com/results?search_query=dumbbell+romanian+deadlift+tutorial+form" target="_blank">
+        <span class="play-icon"></span> Demo
+      </a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="ex-info">
+        <div class="ex-name">Lat pulldown</div>
+        <div class="ex-sets">3 sets &middot; 12 reps</div>
+      </div>
+      <a class="demo-btn" href="https://www.youtube.com/results?search_query=lat+pulldown+tutorial+form" target="_blank">
+        <span class="play-icon"></span> Demo
+      </a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="ex-info">
+        <div class="ex-name">DB Hammer curl</div>
+        <div class="ex-sets">3 sets &middot; 12 reps</div>
+      </div>
+      <a class="demo-btn" href="https://www.youtube.com/results?search_query=dumbbell+hammer+curl+tutorial" target="_blank">
+        <span class="play-icon"></span> Demo
+      </a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="ex-info">
+        <div class="ex-name">Cable triceps pushdown</div>
+        <div class="ex-sets">3 sets &middot; 12 reps</div>
+      </div>
+      <a class="demo-btn" href="https://www.youtube.com/results?search_query=cable+triceps+pushdown+tutorial" target="_blank">
+        <span class="play-icon"></span> Demo
+      </a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="ex-info">
+        <div class="ex-name">DB Lateral raise</div>
+        <div class="ex-sets">3 sets &middot; 12 reps</div>
+      </div>
+      <a class="demo-btn" href="https://www.youtube.com/results?search_query=dumbbell+lateral+raise+tutorial+form" target="_blank">
+        <span class="play-icon"></span> Demo
+      </a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="ex-info">
+        <div class="ex-name">Cable face pull</div>
+        <div class="ex-sets">3 sets &middot; 15 reps</div>
+      </div>
+      <a class="demo-btn" href="https://www.youtube.com/results?search_query=cable+face+pull+tutorial+rear+delts" target="_blank">
+        <span class="play-icon"></span> Demo
+      </a>
+    </div>
+
+    <div class="tip">Face pulls are non-negotiable on this day &mdash; best single move for undoing hours at a desk. Light weight, focus on pulling the elbows high and back.</div>
+  </div>
+
+  <div class="progress-note">
+    <strong>Progression rule</strong>
+    Weeks 1&ndash;2: learn the moves, prioritize posture over load. Weeks 3&ndash;4: once all sets feel controlled at the top of the rep range, add weight or an extra rep.
+  </div>
+
+</div>
+
+<script>
+function switchTab(day) {
+  document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', ['a','b','c'][i] === day));
+  document.querySelectorAll('.day-section').forEach(s => s.classList.toggle('active', s.id === 'tab-' + day));
+}
+</script>
+</body>
+</html>

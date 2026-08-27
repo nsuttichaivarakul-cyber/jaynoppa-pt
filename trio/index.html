@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Trio · Weekly Training</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#f5f5f5;
+  --s1:#ffffff;
+  --s2:#efefef;
+  --s3:#e0e0e0;
+  --s4:#cccccc;
+  --white:#0a0a0a;
+  --grey1:#444;
+  --grey2:#888;
+  --grey3:#bbb;
+}
+body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;min-height:100vh;}
+
+/* ── HEADER ── */
+header{padding:28px 24px 20px;border-bottom:1px solid var(--s3);}
+.h-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;}
+.h-eye{font-family:'Space Mono',monospace;font-size:8px;color:var(--grey2);letter-spacing:4px;margin-bottom:8px;}
+.h-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,6vw,56px);letter-spacing:3px;line-height:.9;color:var(--white);}
+.h-sub{font-family:'Space Mono',monospace;font-size:8px;color:var(--grey2);letter-spacing:2px;margin-top:8px;}
+.h-right{display:flex;gap:8px;flex-wrap:wrap;}
+.h-stat{border:1px solid var(--s3);border-radius:6px;padding:10px 14px;text-align:center;min-width:80px;}
+.h-stat-v{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;line-height:1;color:var(--white);}
+.h-stat-l{font-family:'Space Mono',monospace;font-size:6px;color:var(--grey2);letter-spacing:1.5px;margin-top:2px;}
+
+/* ── PHASE STRIP ── */
+.phase-strip{display:flex;border-bottom:1px solid var(--s3);overflow-x:auto;}
+.ps{flex:1;min-width:110px;padding:10px 14px;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;}
+.ps-num{font-family:'Space Mono',monospace;font-size:7px;color:var(--grey2);letter-spacing:2px;}
+.ps-name{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:var(--grey1);display:block;margin-top:1px;}
+.ps-dates{font-family:'Space Mono',monospace;font-size:6px;color:var(--grey3);margin-top:1px;}
+.ps.on{border-bottom-color:var(--white);}
+.ps.on .ps-name{color:var(--white);}
+.ps.on .ps-num{color:var(--grey1);}
+
+/* ── WEEK TOGGLE ── */
+.week-toggle{display:flex;max-width:900px;margin:0 auto;border-bottom:1px solid var(--s3);}
+.wt{flex:1;padding:12px;text-align:center;cursor:pointer;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--grey2);border-bottom:2px solid transparent;}
+.wt.on{color:var(--white);border-bottom-color:var(--white);}
+
+/* ── LEGEND ── */
+.legend{max-width:900px;margin:0 auto;padding:12px 24px;display:flex;flex-wrap:wrap;gap:6px;border-bottom:1px solid var(--s3);}
+.leg{display:flex;align-items:center;gap:5px;padding:3px 8px;border:1px solid var(--s3);border-radius:3px;}
+.leg-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.leg-label{font-family:'Space Mono',monospace;font-size:7px;color:var(--grey2);letter-spacing:1px;}
+
+/* ── MAIN ── */
+.main{max-width:900px;margin:0 auto;padding:20px 24px 60px;}
+
+.dow-row{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:3px;}
+.dow{font-family:'Space Mono',monospace;font-size:7px;color:var(--grey3);text-align:center;padding:4px 0;letter-spacing:1px;}
+
+.day-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+
+.day{background:var(--s1);border:1px solid var(--s3);border-radius:4px;min-height:88px;padding:7px 6px;cursor:pointer;transition:background .1s,border-color .1s;}
+.day:hover{background:var(--s2);border-color:var(--s4);}
+.day.selected{border-color:var(--white) !important;background:var(--s2);}
+.day-num{font-family:'Space Mono',monospace;font-size:7px;color:var(--grey2);margin-bottom:4px;}
+.day-tag{display:inline-block;border-radius:2px;padding:1px 4px;margin-bottom:4px;}
+.day-tag span{font-family:'Space Mono',monospace;font-size:6px;letter-spacing:.5px;}
+.day-label{font-family:'DM Sans',sans-serif;font-weight:600;font-size:10px;color:var(--white);line-height:1.2;margin-bottom:3px;}
+.day-pace{font-family:'Space Mono',monospace;font-size:7px;color:var(--grey3);}
+
+.t-interval .day-tag{background:rgba(255,255,255,.1);}.t-interval .day-tag span{color:var(--white);}
+.t-interval{border-left:2px solid var(--white);}
+
+.t-easy .day-tag{background:rgba(255,255,255,.04);}.t-easy .day-tag span{color:var(--grey2);}
+
+.t-long .day-tag{background:rgba(255,255,255,.07);}.t-long .day-tag span{color:var(--grey1);}
+.t-long{border-left:2px solid var(--grey2);}
+
+.t-lift .day-tag{background:rgba(255,255,255,.05);}.t-lift .day-tag span{color:var(--grey1);}
+.t-lift{border-left:2px solid var(--grey2);}
+
+.t-station .day-tag{background:var(--white);}.t-station .day-tag span{color:#fff;}
+.t-station{border:1px solid var(--white) !important;border-left:2px solid var(--white) !important;}
+
+.t-rest .day-tag{background:rgba(255,255,255,.02);}.t-rest .day-tag span{color:var(--grey3);}
+.t-rest .day-label{color:var(--grey3);}
+
+.t-cross .day-tag{background:rgba(255,255,255,.03);}.t-cross .day-tag span{color:var(--grey2);}
+.t-cross{border-left:2px dashed var(--grey3);}
+
+/* ── DETAIL PANEL ── */
+.detail-panel{background:var(--s1);border:1px solid var(--s4);border-left:2px solid var(--white);border-radius:6px;padding:18px 20px;margin-top:12px;display:none;}
+.detail-panel.open{display:block;}
+.dp-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
+.dp-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--white);line-height:1;}
+.dp-date{font-family:'Space Mono',monospace;font-size:8px;color:var(--grey2);margin-top:3px;letter-spacing:1px;}
+.dp-close{background:var(--s2);border:1px solid var(--s3);border-radius:4px;color:var(--grey1);cursor:pointer;padding:3px 10px;font-family:'Space Mono',monospace;font-size:10px;flex-shrink:0;}
+.dp-stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.dp-stat{background:var(--s2);border:1px solid var(--s3);border-radius:5px;padding:8px 12px;}
+.dp-stat-l{font-family:'Space Mono',monospace;font-size:7px;color:var(--grey2);letter-spacing:1.5px;margin-bottom:3px;}
+.dp-stat-v{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--white);line-height:1;letter-spacing:1px;}
+.dp-breakdown{border-top:1px solid var(--s3);padding-top:12px;}
+.dp-breakdown-label{font-family:'Space Mono',monospace;font-size:7px;color:var(--grey2);letter-spacing:2px;margin-bottom:8px;}
+.dp-items{display:flex;flex-direction:column;gap:5px;}
+.dp-item{display:flex;align-items:flex-start;gap:8px;}
+.dp-item-dot{width:4px;height:4px;border-radius:50%;background:var(--grey1);flex-shrink:0;margin-top:5px;}
+.dp-item-text{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--grey1);line-height:1.4;}
+
+footer{border-top:1px solid var(--s3);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;max-width:900px;margin:0 auto;}
+.f-brand{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:4px;color:var(--grey2);}
+.f-meta{font-family:'Space Mono',monospace;font-size:7px;color:var(--grey3);letter-spacing:2px;}
+
+@media(max-width:700px){
+  .main{padding:14px 12px 40px;}
+  header{padding:20px 12px 16px;}
+  .h-right{display:none;}
+  .dow{font-size:6px;}
+  .day{min-height:78px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="h-inner">
+    <div>
+      <div class="h-eye">HYROX OPEN SINGLES · WEEK 1 · STARTS 31 AUG 2026</div>
+      <div class="h-title">TRIO<br>WEEKLY</div>
+      <div class="h-sub">SUB-80 TARGET · 40 KM/WK · +10% MONTHLY</div>
+    </div>
+    <div class="h-right">
+      <div class="h-stat"><div class="h-stat-v">40</div><div class="h-stat-l">KM THIS WK</div></div>
+      <div class="h-stat"><div class="h-stat-v">24</div><div class="h-stat-l">WKS TO RACE</div></div>
+      <div class="h-stat"><div class="h-stat-v">SUN</div><div class="h-stat-l">PT DAY</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="phase-strip">
+  <div class="ps on"><div class="ps-num">PHASE 01</div><span class="ps-name">FOUNDATION</span><div class="ps-dates">26 AUG → 6 OCT</div></div>
+  <div class="ps"><div class="ps-num">PHASE 02</div><span class="ps-name">LOAD & COMPROMISED</span><div class="ps-dates">7 OCT → 24 NOV</div></div>
+  <div class="ps"><div class="ps-num">PHASE 03</div><span class="ps-name">SIMULATION</span><div class="ps-dates">25 NOV → 12 JAN</div></div>
+  <div class="ps"><div class="ps-num">PHASE 04</div><span class="ps-name">PEAK</span><div class="ps-dates">13 JAN → 2 FEB</div></div>
+  <div class="ps"><div class="ps-num">PHASE 05</div><span class="ps-name">TAPER</span><div class="ps-dates">3 FEB → 14 FEB</div></div>
+</div>
+
+<div class="legend">
+  <div class="leg"><div class="leg-dot" style="background:#0a0a0a;"></div><span class="leg-label">INTERVAL</span></div>
+  <div class="leg"><div class="leg-dot" style="background:#888;"></div><span class="leg-label">LONG / LIFT</span></div>
+  <div class="leg"><div class="leg-dot" style="background:#ccc;"></div><span class="leg-label">EASY</span></div>
+  <div class="leg"><div class="leg-dot" style="background:#0a0a0a;border:1px solid #fff;"></div><span class="leg-label">PT / STATION</span></div>
+  <div class="leg"><div class="leg-dot" style="background:#e0e0e0;border:1px solid #bbb;"></div><span class="leg-label">REST</span></div>
+  <div class="leg"><div class="leg-dot" style="background:#fff;border:1px dashed #bbb;"></div><span class="leg-label">BIKE / REST CHOICE</span></div>
+  <div class="leg" style="background:rgba(0,0,0,.03);border-color:#444;"><span class="leg-label" style="color:#888;">TAP DAY → DETAILS</span></div>
+</div>
+
+<div class="main">
+  <div class="dow-row" id="dow-row"></div>
+  <div class="day-grid" id="day-grid"></div>
+  <div class="detail-panel" id="panel"></div>
+</div>
+
+<footer>
+  <div class="f-brand">TRIO · HYROX OPEN · 14 FEB 2027</div>
+  <div class="f-meta">UPDATED WEEKLY BY JAY</div>
+</footer>
+
+<script>
+const DOW_LABELS = ["MON","TUE","WED","THU","FRI","SAT","SUN"];
+
+const WEEKS = {
+  lift: [
+    {day:"MON",date:"31 AUG",type:"cross",tag:"BIKE / REST",label:"Bike Zone 1 or Rest",pace:"",km:"",details:["Choice: easy bike Zone 1 (30–40 min, very light effort) OR full rest","Legs will be tired from Sunday's HYROX session — pick whichever feels right that day","Not a running day"]},
+    {day:"TUE",date:"1 SEP",type:"interval",tag:"INTERVAL",label:"Interval Run",pace:"4:35–4:45/km",km:"~8 km",details:["Warm-up: 2 km easy","Main set: 4 × 1 km @ 4:35–4:45/km","Rest: 2 min jog between reps","Cool down: 2 km easy","Total volume: ~8 km","Starting at 4 reps — build up over coming weeks"]},
+    {day:"WED",date:"2 SEP",type:"lift",tag:"LIFT",label:"Weight — Leg Focus",pace:"",km:"",details:["Own weight training program — leg focus","Coordinate with weightlifting PT"]},
+    {day:"THU",date:"3 SEP",type:"easy",tag:"EASY",label:"Easy Run",pace:"6:00–6:30/km",km:"10 km",details:["Easy 10 km @ 6:00–6:30/km","Zone 2 · relaxed"]},
+    {day:"FRI",date:"4 SEP",type:"lift",tag:"LIFT",label:"Weight — Upper Focus",pace:"",km:"",details:["Own weight training program — upper body focus","Coordinate with weightlifting PT"]},
+    {day:"SAT",date:"5 SEP",type:"long",tag:"LONG",label:"Long Run",pace:"5:45–6:15/km",km:"~15 km",details:["Long run — 90 minutes","Pace: 5:45–6:15/km","Steady aerobic effort, not a race","~15 km total"]},
+    {day:"SUN",date:"6 SEP",type:"station",tag:"PT",label:"HYROX Practice w/ Jay",pace:"",km:"",details:["HYROX station technique work","Content updates weekly based on progress"]},
+  ],
+  station: [
+    {day:"MON",date:"31 AUG",type:"cross",tag:"BIKE / REST",label:"Bike Zone 1 or Rest",pace:"",km:"",details:["Choice: easy bike Zone 1 (30–40 min) OR full rest","Not a running day"]},
+    {day:"TUE",date:"1 SEP",type:"interval",tag:"INTERVAL",label:"Interval Run",pace:"4:35–4:45/km",km:"~8 km",details:["Warm-up: 2 km easy","Main set: 4 × 1 km @ 4:35–4:45/km","Rest: 2 min jog between reps","Cool down: 2 km easy","Total volume: ~8 km"]},
+    {day:"WED",date:"2 SEP",type:"lift",tag:"LIFT",label:"Weight — Leg Focus",pace:"",km:"",details:["Own weight training program — leg focus"]},
+    {day:"THU",date:"3 SEP",type:"easy",tag:"EASY",label:"Easy Run",pace:"6:00–6:30/km",km:"10 km",details:["Easy 10 km @ 6:00–6:30/km","Zone 2 · relaxed"]},
+    {day:"FRI",date:"4 SEP",type:"lift",tag:"LIFT",label:"Weight — Upper Focus",pace:"",km:"",details:["Own weight training program — upper body focus"]},
+    {day:"SAT",date:"5 SEP",type:"long",tag:"LONG",label:"Long Run",pace:"5:45–6:15/km",km:"~15 km",details:["Long run — 90 minutes","Pace: 5:45–6:15/km","~15 km total"]},
+    {day:"SUN",date:"6 SEP",type:"station",tag:"PT",label:"HYROX Practice w/ Jay",pace:"",km:"",details:["HYROX station technique work"]},
+  ]
+};
+
+let currentWeek = "lift";
+let selectedIdx = null;
+
+function pace_or_dash(p){ return p && p !== "" ? p : "—"; }
+
+function render() {
+  const dow = document.getElementById("dow-row");
+  const grid = document.getElementById("day-grid");
+  dow.innerHTML = "";
+  grid.innerHTML = "";
+  document.getElementById("panel").classList.remove("open");
+  selectedIdx = null;
+
+  DOW_LABELS.forEach(d => {
+    const el = document.createElement("div");
+    el.className = "dow";
+    el.textContent = d;
+    dow.appendChild(el);
+  });
+
+  WEEKS[currentWeek].forEach((s, i) => {
+    const cell = document.createElement("div");
+    cell.className = `day t-${s.type}`;
+    let inner = `<div class="day-num">${s.day} · ${s.date}</div>`;
+    inner += `<div class="day-tag"><span>${s.tag}</span></div>`;
+    inner += `<div class="day-label">${s.label}</div>`;
+    if (s.pace) inner += `<div class="day-pace">${s.pace}</div>`;
+    if (s.km) inner += `<div class="day-pace">${s.km}</div>`;
+    cell.innerHTML = inner;
+    cell.onclick = () => handleClick(i, cell);
+    grid.appendChild(cell);
+  });
+}
+
+function handleClick(i, cell) {
+  const panel = document.getElementById("panel");
+  if (selectedIdx === i && panel.classList.contains("open")) {
+    panel.classList.remove("open");
+    cell.classList.remove("selected");
+    selectedIdx = null;
+    return;
+  }
+  document.querySelectorAll(".day.selected").forEach(d => d.classList.remove("selected"));
+  cell.classList.add("selected");
+  selectedIdx = i;
+
+  const s = WEEKS[currentWeek][i];
+  panel.innerHTML = `
+    <div class="dp-head">
+      <div>
+        <div class="dp-title">${s.label}</div>
+        <div class="dp-date">${s.day} · ${s.tag}</div>
+      </div>
+      <button class="dp-close" onclick="closePanel()">✕ CLOSE</button>
+    </div>
+    <div class="dp-stats">
+      ${s.pace ? `<div class="dp-stat"><div class="dp-stat-l">TARGET PACE</div><div class="dp-stat-v">${s.pace}</div></div>` : ""}
+      <div class="dp-stat"><div class="dp-stat-l">SESSION TYPE</div><div class="dp-stat-v">${s.tag}</div></div>
+    </div>
+    <div class="dp-breakdown">
+      <div class="dp-breakdown-label">SESSION BREAKDOWN</div>
+      <div class="dp-items">
+        ${s.details.map(line => `
+          <div class="dp-item">
+            <div class="dp-item-dot"></div>
+            <div class="dp-item-text">${line}</div>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+  panel.classList.add("open");
+}
+
+function closePanel() {
+  document.getElementById("panel").classList.remove("open");
+  document.querySelectorAll(".day.selected").forEach(d => d.classList.remove("selected"));
+  selectedIdx = null;
+}
+
+function switchWeek(w) {
+  currentWeek = w;
+  document.querySelectorAll(".wt").forEach((el,i) => el.classList.toggle("on", (w==="lift"&&i===0)||(w==="station"&&i===1)));
+  render();
+}
+
+document.querySelectorAll(".ps").forEach(el => {
+  el.onclick = () => {
+    document.querySelectorAll(".ps").forEach(e => e.classList.remove("on"));
+    el.classList.add("on");
+  };
+});
+
+render();
+</script>
+</body>
+</html>
