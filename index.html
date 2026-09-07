@@ -1,79 +1,118 @@
-I don't have the ability to log into your GitHub account directly — I can only prepare files and walk you through the exact clicks. But let's make this as close to "done for you" as possible.
-
-**Fastest fix — edit directly in GitHub's browser editor:**Here's the exact code to paste in step 3 — copy everything below:```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jay PT</title>
+<title>Jaynoppa</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f4f0; color: #1a1a1a; min-height: 100vh; }
+  :root {
+    --ink: #0F0D0A;
+    --gold: #D4A24E;
+    --gold-bright: #F0C878;
+    --cream: #F5F0E6;
+    --steel: #8A8474;
+  }
+  body {
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+  }
 
-  .header { background: #1a1a1a; color: white; padding: 40px 24px 32px; text-align: center; }
-  .header-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 8px; }
-  .header-name { font-size: 36px; font-weight: 700; letter-spacing: -0.5px; }
-  .header-sub { font-size: 13px; color: #aaa; margin-top: 8px; }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 0 20px; }
 
-  .content { max-width: 480px; margin: 0 auto; padding: 24px 20px 60px; }
+  header { padding: 28px 0 24px; display: flex; justify-content: space-between; align-items: baseline; }
+  .wordmark { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1.5px; color: var(--cream); }
+  .location { font-size: 12px; color: var(--steel); }
 
-  .section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #999; margin: 20px 0 10px; }
-  .section-label:first-child { margin-top: 0; }
+  .plaque {
+    background: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold) 100%);
+    border-radius: 6px;
+    padding: 22px 24px;
+    margin-bottom: 32px;
+  }
+  .plaque-title { font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: 1px; color: var(--ink); line-height: 1; }
+  .plaque-date { font-size: 13px; color: var(--ink); opacity: 0.75; margin-top: 6px; font-weight: 500; }
 
-  .client-link { display: block; background: white; border-radius: 12px; padding: 18px 20px; margin-bottom: 12px; text-decoration: none; color: #1a1a1a; box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: transform 0.1s; }
-  .client-link:active { transform: scale(0.98); }
-  .client-name { font-size: 17px; font-weight: 700; margin-bottom: 2px; }
-  .client-desc { font-size: 13px; color: #888; }
+  .roster { list-style: none; }
+  .row {
+    display: block;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(212, 162, 78, 0.22);
+    text-decoration: none;
+    color: var(--cream);
+    transition: background 0.15s;
+  }
+  .row:active { background: rgba(212, 162, 78, 0.08); }
+  .row-top { display: flex; align-items: center; gap: 12px; }
+  .bib {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: var(--gold-bright);
+    border: 1.5px solid var(--gold);
+    border-radius: 3px;
+    padding: 2px 7px;
+    flex-shrink: 0;
+  }
+  .row-name { font-family: 'Bebas Neue', sans-serif; font-size: 27px; letter-spacing: 0.5px; }
+  .row-meta { font-size: 13px; color: var(--steel); margin-top: 4px; }
 
-  .footer-note { text-align: center; font-size: 11px; color: #aaa; margin-top: 24px; }
+  footer { padding: 32px 0 40px; font-size: 12px; color: var(--steel); text-align: center; }
+
+  @media (max-width: 420px) {
+    .plaque-title { font-size: 28px; }
+    .row-name { font-size: 23px; }
+  }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-tag">Personal Training</div>
-  <div class="header-name">Jay PT</div>
-  <div class="header-sub">Client programs & training calendars</div>
-</div>
+<div class="wrap">
 
-<div class="content">
+  <header>
+    <div class="wordmark">JAYNOPPA</div>
+    <div class="location">Bangkok</div>
+  </header>
 
-  <div class="section-label">HYROX</div>
+  <div class="plaque">
+    <div class="plaque-title">HYROX BANGKOK</div>
+    <div class="plaque-date">14 February 2027</div>
+  </div>
 
-  <a class="client-link" href="/trio/">
-    <div class="client-name">Trio</div>
-    <div class="client-desc">HYROX Open · Sub-80 · Training Calendar</div>
-  </a>
+  <ul class="roster">
 
-  <a class="client-link" href="/benz/">
-    <div class="client-name">Benz</div>
-    <div class="client-desc">HYROX Doubles · Sub-80 · Training Calendar</div>
-  </a>
+    <a class="row" href="/trio/">
+      <div class="row-top">
+        <span class="bib">N°01</span>
+        <span class="row-name">Trio</span>
+      </div>
+      <div class="row-meta">Open Singles — sub-80 target</div>
+    </a>
 
-  <a class="client-link" href="/toei/">
-    <div class="client-name">Toei</div>
-    <div class="client-desc">HYROX Doubles · Sub-80 · Training Calendar</div>
-  </a>
+    <a class="row" href="/benz/">
+      <div class="row-top">
+        <span class="bib">N°02A</span>
+        <span class="row-name">Benz</span>
+      </div>
+      <div class="row-meta">Doubles — sub-80 target, paired with Toei</div>
+    </a>
 
-  <div class="section-label">Programs</div>
+    <a class="row" href="/toei/">
+      <div class="row-top">
+        <span class="bib">N°02B</span>
+        <span class="row-name">Toei</span>
+      </div>
+      <div class="row-meta">Doubles — sub-80 target, paired with Benz</div>
+    </a>
 
-  <a class="client-link" href="/kik/">
-    <div class="client-name">Kik</div>
-    <div class="client-desc">Arms & Total Body Program</div>
-  </a>
+  </ul>
 
-  <a class="client-link" href="/perth/">
-    <div class="client-name">Perth</div>
-    <div class="client-desc">Glute Building Program</div>
-  </a>
-
-  <div class="footer-note">jaynoppa.fit</div>
+  <footer>jaynoppa.fit</footer>
 
 </div>
 
 </body>
 </html>
-```
-
-Paste that into GitHub's editor, commit, wait a minute, then refresh `jaynoppa.fit`.
