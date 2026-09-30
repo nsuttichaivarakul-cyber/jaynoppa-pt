@@ -117,12 +117,12 @@ footer{border-top:1px solid var(--s3);padding:16px 24px;display:flex;justify-con
 <header>
   <div class="h-inner">
     <div>
-      <div class="h-eye">HYROX DOUBLES · PHASE 1 · FOUNDATION</div>
+      <div class="h-eye">HYROX DOUBLES · PHASE 2 · LOAD & COMPROMISED RUNNING</div>
       <div class="h-title">TOEI</div>
-      <div class="h-sub">SUB-80 TARGET (TEAM) · WEEKS 1–4 · WK4 = DELOAD</div>
+      <div class="h-sub">SUB-80 TARGET (TEAM) · WEEKS 5–8 · WK8 = DELOAD</div>
     </div>
     <div class="h-right">
-      <div class="h-stat"><div class="h-stat-v">01</div><div class="h-stat-l">PHASE</div></div>
+      <div class="h-stat"><div class="h-stat-v">02</div><div class="h-stat-l">PHASE</div></div>
       <div class="h-stat"><div class="h-stat-v">SUN</div><div class="h-stat-l">PT DAY</div></div>
       <div class="h-stat"><div class="h-stat-v">14 FEB</div><div class="h-stat-l">RACE DAY</div></div>
     </div>
@@ -154,51 +154,51 @@ const DOW_LABELS = ["MON","TUE","WED","THU","FRI","SAT","SUN"];
 
 const WEEKS = [
   {
-    label: "WEEK 1 · BUILD", vol: "~15.1 km", deload: false,
+    label: "WEEK 5 · BUILD", vol: "~19.8 km", deload: false,
     days: [
-      {date:"31 AUG",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
-      {date:"1 SEP",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
-      {date:"2 SEP",type:"interval",tag:"INTERVAL",label:"Interval — 400m",pace:"~7:40/km",km:"3.6 km",details:["Warm-up: 1 km easy","Main set: 4 × 400m @ ~7:40/km pace","Rest: standing rest between reps (first interval week)","Cool down: 1 km easy"]},
-      {date:"3 SEP",type:"easy",tag:"EASY",label:"Easy Run",pace:"9:00–9:30/km",km:"45 min",details:["Easy 45 min @ 9:00–9:30/km","~4.8 km · Zone 2 · relaxed"]},
-      {date:"4 SEP",type:"rest",tag:"REST",label:"Rest",pace:"",km:"",details:["Full rest day"]},
-      {date:"5 SEP",type:"long",tag:"LONG",label:"Long Run",pace:"8:45–9:15/km",km:"60 min",details:["Long run 60 min @ 8:45–9:15/km","~6.7 km · steady aerobic effort"]},
-      {date:"6 SEP",type:"station",tag:"PT",label:"HYROX w/ Jay",pace:"",km:"",details:["HYROX station technique work — doubles pairing with Benz"]},
+      {date:"28 SEP",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
+      {date:"29 SEP",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
+      {date:"30 SEP",type:"interval",tag:"INTERVAL",label:"Interval — 800m",pace:"6:45–7:00/km",km:"~7.2 km",details:["Warm-up: 2 km easy","Main set: 4 × 800m @ 6:45–7:00/km","Rest: 3 min between reps","Cool down: 2 km easy","New distance this month — up from 400m","Check-in: if this feels comfortable, next week's pace may move faster"]},
+      {date:"1 OCT",type:"easy",tag:"EASY",label:"Easy Run",pace:"9:00–9:30/km",km:"50 min",details:["Easy 50 min @ 9:00–9:30/km","~5.4 km · Zone 2 · relaxed"]},
+      {date:"2 OCT",type:"rest",tag:"REST",label:"Rest",pace:"",km:"",details:["Full rest day"]},
+      {date:"3 OCT",type:"long",tag:"LONG",label:"Long Run",pace:"8:45–9:15/km",km:"65 min",details:["Long run 65 min @ 8:45–9:15/km","~7.2 km · steady aerobic effort"]},
+      {date:"4 OCT",type:"station",tag:"PT",label:"HYROX w/ Jay",pace:"",km:"",details:["Phase 2 begins — compromised running introduced","Doubles pairing with Benz"]},
     ]
   },
   {
-    label: "WEEK 2 · BUILD", vol: "~16.5 km", deload: false,
+    label: "WEEK 6 · BUILD", vol: "~20.4 km", deload: false,
     days: [
-      {date:"7 SEP",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
-      {date:"8 SEP",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
-      {date:"9 SEP",type:"interval",tag:"INTERVAL",label:"Interval — 400m",pace:"~7:40/km",km:"5.0 km",details:["Warm-up: 1.5 km easy","Main set: 5 × 400m @ ~7:40/km pace","Rest: 90 sec jog between reps","Cool down: 1.5 km easy","One extra rep from last week"]},
-      {date:"10 SEP",type:"easy",tag:"EASY",label:"Easy Run",pace:"9:00–9:30/km",km:"45 min",details:["Easy 45 min @ 9:00–9:30/km"]},
-      {date:"11 SEP",type:"rest",tag:"REST",label:"Rest",pace:"",km:"",details:["Full rest day"]},
-      {date:"12 SEP",type:"long",tag:"LONG",label:"Long Run",pace:"8:45–9:15/km",km:"60 min",details:["Long run 60 min @ 8:45–9:15/km"]},
-      {date:"13 SEP",type:"station",tag:"PT",label:"HYROX w/ Jay",pace:"",km:"",details:["HYROX station technique work"]},
+      {date:"5 OCT",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
+      {date:"6 OCT",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
+      {date:"7 OCT",type:"interval",tag:"INTERVAL",label:"Interval — 800m",pace:"6:40–6:55/km",km:"~7.2 km",details:["Warm-up: 2 km easy","Main set: 4 × 800m @ 6:40–6:55/km","Rest: 3 min between reps","Cool down: 2 km easy"]},
+      {date:"8 OCT",type:"easy",tag:"EASY",label:"Easy Run",pace:"9:00–9:30/km",km:"50 min",details:["Easy 50 min @ 9:00–9:30/km"]},
+      {date:"9 OCT",type:"rest",tag:"REST",label:"Rest",pace:"",km:"",details:["Full rest day"]},
+      {date:"10 OCT",type:"long",tag:"LONG",label:"Long Run",pace:"8:45–9:15/km",km:"70 min",details:["Long run 70 min @ 8:45–9:15/km","~7.8 km"]},
+      {date:"11 OCT",type:"station",tag:"PT",label:"HYROX w/ Jay",pace:"",km:"",details:["Compromised running continues"]},
     ]
   },
   {
-    label: "WEEK 3 · BUILD", vol: "~17.9 km", deload: false,
+    label: "WEEK 7 · BUILD", vol: "~21.7 km", deload: false,
     days: [
-      {date:"14 SEP",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
-      {date:"15 SEP",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
-      {date:"16 SEP",type:"interval",tag:"INTERVAL",label:"Interval — 400m",pace:"~7:40/km",km:"6.4 km",details:["Warm-up: 2 km easy","Main set: 6 × 400m @ ~7:40/km pace","Rest: 90 sec jog between reps","Cool down: 2 km easy","Full WU/CD reached — 2 km each side"]},
-      {date:"17 SEP",type:"easy",tag:"EASY",label:"Easy Run",pace:"9:00–9:30/km",km:"45 min",details:["Easy 45 min @ 9:00–9:30/km"]},
-      {date:"18 SEP",type:"rest",tag:"REST",label:"Rest",pace:"",km:"",details:["Full rest day"]},
-      {date:"19 SEP",type:"long",tag:"LONG",label:"Long Run",pace:"8:45–9:15/km",km:"60 min",details:["Long run 60 min @ 8:45–9:15/km"]},
-      {date:"20 SEP",type:"station",tag:"PT",label:"HYROX w/ Jay",pace:"",km:"",details:["HYROX station technique work"]},
+      {date:"12 OCT",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
+      {date:"13 OCT",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
+      {date:"14 OCT",type:"interval",tag:"INTERVAL",label:"Interval — 800m",pace:"6:30–6:45/km",km:"~8.0 km",details:["Warm-up: 2 km easy","Main set: 5 × 800m @ 6:30–6:45/km","Rest: 3 min between reps","Cool down: 2 km easy","One extra rep from last week"]},
+      {date:"15 OCT",type:"easy",tag:"EASY",label:"Easy Run",pace:"9:00–9:30/km",km:"50 min",details:["Easy 50 min @ 9:00–9:30/km"]},
+      {date:"16 OCT",type:"rest",tag:"REST",label:"Rest",pace:"",km:"",details:["Full rest day"]},
+      {date:"17 OCT",type:"long",tag:"LONG",label:"Long Run",pace:"8:45–9:15/km",km:"75 min",details:["Long run 75 min @ 8:45–9:15/km","~8.3 km · final build week before deload"]},
+      {date:"18 OCT",type:"station",tag:"PT",label:"HYROX w/ Jay",pace:"",km:"",details:["Final build-week session before deload"]},
     ]
   },
   {
-    label: "WEEK 4 · DELOAD", vol: "~10.1 km", deload: true,
+    label: "WEEK 8 · DELOAD", vol: "~12.1 km", deload: true,
     days: [
-      {date:"21 SEP",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program — normal loads"]},
-      {date:"22 SEP",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
-      {date:"23 SEP",type:"interval",tag:"INTERVAL",label:"Interval — Light",pace:"~7:40/km",km:"3.2 km",details:["Warm-up: 1 km easy","Main set: 3 × 400m @ ~7:40/km pace","Rest: full standing recovery","Cool down: 1 km easy","Deload week — reduced reps"]},
-      {date:"24 SEP",type:"easy",tag:"EASY",label:"Easy Run",pace:"9:00–9:30/km",km:"30 min",details:["Easy 30 min @ 9:00–9:30/km","Deload week — shorter duration"]},
-      {date:"25 SEP",type:"rest",tag:"REST",label:"Rest",pace:"",km:"",details:["Full rest day"]},
-      {date:"26 SEP",type:"easy",tag:"EASY",label:"Easy Run (no long run)",pace:"9:00–9:30/km",km:"35 min",details:["Easy 35 min — replaces this week's long run","Deload week — no long run"]},
-      {date:"27 SEP",type:"station",tag:"PT",label:"HYROX w/ Jay — Light",pace:"",km:"",details:["Technique review only — light loads","No new PRs or max-effort work this week"]},
+      {date:"19 OCT",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program — normal loads unless excessive fatigue"]},
+      {date:"20 OCT",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
+      {date:"21 OCT",type:"interval",tag:"INTERVAL",label:"Interval — 800m (Light)",pace:"6:30–6:45/km",km:"~4.4 km",details:["Warm-up: 1 km easy","Main set: 3 × 800m @ 6:30–6:45/km (same pace as Wk7)","Rest: 3 min between reps","Cool down: 1 km easy","Deload week — reduced reps, pace held"]},
+      {date:"22 OCT",type:"easy",tag:"EASY",label:"Easy Run",pace:"9:00–9:30/km",km:"35 min",details:["Easy 35 min @ 9:00–9:30/km","Deload week — shorter duration"]},
+      {date:"23 OCT",type:"rest",tag:"REST",label:"Rest",pace:"",km:"",details:["Full rest day"]},
+      {date:"24 OCT",type:"easy",tag:"EASY",label:"Easy Run (no long run)",pace:"9:00–9:30/km",km:"35 min",details:["Easy 35 min — replaces this week's long run","Deload week — no long run"]},
+      {date:"25 OCT",type:"station",tag:"PT",label:"HYROX w/ Jay — Light",pace:"",km:"",details:["Technique review only — light loads","No new PRs or max-effort work this week"]},
     ]
   },
 ];
