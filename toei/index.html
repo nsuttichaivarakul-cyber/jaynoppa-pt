@@ -1,307 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Toei</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toei · Nov Calendar</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --bg:#f6f4fa;
-  --s1:#ffffff;
-  --s2:#efeaf7;
-  --s3:#ddd3ee;
-  --s4:#c6b6e3;
-  --ink:#0a0a0a;
-  --grey1:#444;
-  --grey2:#888;
-  --grey3:#bbb;
-  --accent:#7c3aed;
-  --accent2:#c026d3;
-  --accent-tint:#f2e9fd;
-}
-body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh;}
-
-header{padding:28px 24px 20px;border-bottom:1px solid var(--s3);background:linear-gradient(135deg,#faf8ff 0%,#f3ebfd 100%);}
-.h-inner{max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;}
-.h-eye{font-family:'Space Mono',monospace;font-size:8px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:4px;margin-bottom:8px;font-weight:700;}
-.h-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,6vw,56px);letter-spacing:3px;line-height:.9;color:var(--ink);}
-.h-sub{font-family:'Space Mono',monospace;font-size:8px;color:var(--grey2);letter-spacing:2px;margin-top:8px;}
-.h-right{display:flex;gap:8px;flex-wrap:wrap;}
-.h-stat{border:1px solid var(--accent);border-radius:6px;padding:10px 14px;text-align:center;min-width:70px;background:var(--s1);}
-.h-stat-v{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;line-height:1;color:var(--accent);}
-.h-stat-l{font-family:'Space Mono',monospace;font-size:6px;color:var(--grey2);letter-spacing:1.5px;margin-top:2px;}
-
-.legend{max-width:1000px;margin:0 auto;padding:12px 24px;display:flex;flex-wrap:wrap;gap:6px;border-bottom:1px solid var(--s3);}
-.leg{display:flex;align-items:center;gap:5px;padding:3px 8px;border:1px solid var(--s3);border-radius:3px;}
-.leg-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
-.leg-label{font-family:'Space Mono',monospace;font-size:7px;color:var(--grey2);letter-spacing:1px;}
-
-.main{max-width:1000px;margin:0 auto;padding:20px 24px 60px;}
-
-.dow-row{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:3px;}
-.dow{font-family:'Space Mono',monospace;font-size:7px;color:var(--grey3);text-align:center;padding:4px 0;letter-spacing:1px;}
-
-.week-row{margin-bottom:14px;}
-.week-meta{display:flex;justify-content:space-between;align-items:center;padding:2px 4px;margin-bottom:4px;}
-.wm-label{font-family:'Space Mono',monospace;font-size:8px;color:var(--grey2);letter-spacing:1.5px;}
-.wm-vol{font-family:'Bebas Neue',sans-serif;font-size:14px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:1px;}
-.wm-vol.deload{-webkit-text-fill-color:#8b1a8b;color:#8b1a8b;background:none;}
-
-.day-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
-
-.day{background:var(--s1);border:1px solid var(--s3);border-radius:4px;min-height:80px;padding:6px 6px;cursor:pointer;transition:background .1s,border-color .1s;}
-.day:hover{background:var(--accent-tint);border-color:var(--accent);}
-.day.selected{border-color:var(--accent) !important;background:var(--accent-tint);}
-.day-num{font-family:'Space Mono',monospace;font-size:7px;color:var(--grey2);margin-bottom:3px;}
-.day-tag{display:inline-block;border-radius:2px;padding:1px 4px;margin-bottom:3px;}
-.day-tag span{font-family:'Space Mono',monospace;font-size:6px;letter-spacing:.5px;}
-.day-label{font-family:'DM Sans',sans-serif;font-weight:600;font-size:9px;color:var(--ink);line-height:1.2;margin-bottom:2px;}
-.day-pace{font-family:'Space Mono',monospace;font-size:6.5px;color:var(--grey3);}
-
-.t-interval .day-tag{background:linear-gradient(90deg,var(--accent),var(--accent2));}.t-interval .day-tag span{color:#fff;}
-.t-interval{border-left:2px solid var(--accent);}
-
-.t-easy .day-tag{background:rgba(124,58,237,.08);}.t-easy .day-tag span{color:var(--accent);}
-
-.t-long .day-tag{background:rgba(192,38,211,.15);}.t-long .day-tag span{color:#8b1a8b;}
-.t-long{border-left:2px solid var(--accent2);}
-
-.t-lift .day-tag{background:rgba(0,0,0,.05);}.t-lift .day-tag span{color:var(--grey1);}
-.t-lift{border-left:2px solid var(--grey2);}
-
-.t-station .day-tag{background:var(--ink);}.t-station .day-tag span{color:#fff;}
-.t-station{border:1px solid var(--ink) !important;border-left:2px solid var(--accent2) !important;}
-
-.t-rest .day-tag{background:rgba(0,0,0,.02);}.t-rest .day-tag span{color:var(--grey3);}
-.t-rest .day-label{color:var(--grey3);}
-
-.week-row.deload .day{background:#faf3fd;}
-.week-row.deload .week-meta{background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:6px;padding:6px 10px;margin-bottom:6px;}
-.week-row.deload .wm-label{color:#fff;}
-.week-row.deload .wm-vol.deload{color:#fff;-webkit-text-fill-color:#fff;}
-
-.detail-panel{background:var(--s1);border:1px solid var(--s4);border-left:2px solid var(--accent);border-radius:6px;padding:18px 20px;margin-top:8px;margin-bottom:8px;display:none;}
-.detail-panel.open{display:block;}
-.dp-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
-.dp-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--ink);line-height:1;}
-.dp-date{font-family:'Space Mono',monospace;font-size:8px;color:var(--grey2);margin-top:3px;letter-spacing:1px;}
-.dp-close{background:var(--s2);border:1px solid var(--s3);border-radius:4px;color:var(--grey1);cursor:pointer;padding:3px 10px;font-family:'Space Mono',monospace;font-size:10px;flex-shrink:0;}
-.dp-stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
-.dp-stat{background:var(--accent-tint);border:1px solid var(--s3);border-radius:5px;padding:8px 12px;}
-.dp-stat-l{font-family:'Space Mono',monospace;font-size:7px;color:var(--grey2);letter-spacing:1.5px;margin-bottom:3px;}
-.dp-stat-v{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--accent);line-height:1;letter-spacing:1px;}
-.dp-breakdown{border-top:1px solid var(--s3);padding-top:12px;}
-.dp-breakdown-label{font-family:'Space Mono',monospace;font-size:7px;color:var(--grey2);letter-spacing:2px;margin-bottom:8px;}
-.dp-items{display:flex;flex-direction:column;gap:5px;}
-.dp-item{display:flex;align-items:flex-start;gap:8px;}
-.dp-item-dot{width:4px;height:4px;border-radius:50%;background:var(--accent2);flex-shrink:0;margin-top:5px;}
-.dp-item-text{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--grey1);line-height:1.4;}
-
-footer{border-top:1px solid var(--s3);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;max-width:1000px;margin:0 auto;}
-.f-brand{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:4px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;}
-.f-meta{font-family:'Space Mono',monospace;font-size:7px;color:var(--grey3);letter-spacing:2px;}
-
-@media(max-width:700px){
-  .main{padding:14px 12px 40px;}
-  header{padding:20px 12px 16px;}
-  .h-right{display:none;}
-  .dow{font-size:6px;}
-  .day{min-height:66px;}
-}
+:root{--bg:#f6f4fa;--s2:#efeaf7;--s3:#ddd3ee;--s4:#c6b6e3;--accent:#7c3aed;--accent2:#c026d3;--tint:#f2e9fd;--grad:linear-gradient(90deg,var(--accent),var(--accent2));--ink:#0a0a0a;--mute:#888}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh}
+.header{padding:28px 20px 18px;background:linear-gradient(135deg,#faf8ff 0%,#f3ebfd 100%);border-bottom:1px solid var(--s3)}
+.eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:#7c3aed;text-transform:uppercase}
+h1{font-family:'Bebas Neue',sans-serif;font-size:56px;letter-spacing:.02em;line-height:1;margin:6px 0 4px}
+.sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--mute);letter-spacing:.06em;line-height:1.6}
+.stats{display:flex;gap:22px;margin-top:16px;flex-wrap:wrap}
+.stat{border-left:2px solid #7c3aed;padding-left:10px}
+.stat b{display:block;font-family:'Bebas Neue',sans-serif;font-size:26px;font-weight:400;color:#7c3aed;line-height:1}
+.stat span{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--mute)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;padding:14px 20px 4px}
+.lg{display:flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:9px;color:#555;letter-spacing:.06em;text-transform:uppercase}
+.dot{width:8px;height:8px;border-radius:50%}
+.dot-int{background:linear-gradient(90deg,#7c3aed,#c026d3)}.dot-long{background:#c026d3}.dot-easy{background:#e3d3fb}
+.dot-lift{background:var(--s4)}.dot-pt{background:#c026d3}.dot-rest{background:var(--s3)}.dot-race{background:var(--grad)}
+.wrap{overflow-x:auto;padding:8px 12px 40px}
+.cal{min-width:760px}
+.head,.week-row .days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.head{padding:0 0 4px}
+.head div{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--mute);text-align:center}
+.week-row{margin-bottom:14px}
+.wk-top{display:flex;justify-content:space-between;align-items:baseline;padding:10px 4px 6px}
+.wk-top .l{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.04em}
+.wk-top .v{font-family:'Space Mono',monospace;font-size:10px;color:var(--mute)}
+.week-row.deload .wk-top{background:var(--grad);color:#fff;padding:8px 10px;border-radius:6px 6px 0 0}
+.week-row.deload .wk-top .v{color:#ffffff}
+.week-row.deload .day{background:#faf3fd}
+.day{min-height:96px;background:#fff;border:1px solid var(--s3);border-radius:6px;padding:7px 6px;cursor:pointer;display:flex;flex-direction:column;gap:4px;transition:transform .1s}
+.day:active{transform:scale(.97)}
+.day.empty{background:transparent;border:1px dashed var(--s3);cursor:default}
+.day .dt{font-family:'Space Mono',monospace;font-size:9px;color:var(--mute)}
+.day .tag{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.06em;padding:2px 5px;border-radius:3px;align-self:flex-start;text-transform:uppercase;font-weight:700}
+.day .lb{font-size:11px;font-weight:700;line-height:1.25}
+.day .km{font-family:'Space Mono',monospace;font-size:9px;color:var(--mute);margin-top:auto}
+.t-interval{background:var(--s2)}.t-interval .tag{background:linear-gradient(90deg,#7c3aed,#c026d3);color:#ffffff}
+.t-easy .tag{background:rgba(124,58,237,.08);color:#7c3aed}
+.t-long{background:var(--tint)}.t-long .tag{background:rgba(192,38,211,.15);color:#8b1a8b;border-left:2px solid #c026d3}
+.t-lift .tag{background:var(--s3);color:#444}
+.t-station{background:var(--tint)}.t-station .tag{background:var(--ink);color:#fff}
+.t-rest{background:var(--bg)}.t-rest .tag{background:var(--s3);color:#777}.t-rest .lb{color:#999;font-weight:500}
+.t-race{border:2px solid var(--accent);background:var(--tint)}.t-race .tag{background:var(--grad);color:#fff}
+.day.open{outline:2px solid var(--accent)}
+.detail-panel{display:none;margin-top:6px;background:#fff;border:1px solid var(--s3);border-left:3px solid var(--accent);border-radius:6px;padding:14px 16px}
+.detail-panel.show{display:block}
+.dp-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.03em}
+.dp-meta{display:flex;gap:22px;margin:8px 0 10px;flex-wrap:wrap}
+.dp-meta div span{display:block;font-family:'Space Mono',monospace;font-size:8px;color:var(--mute);letter-spacing:.1em}
+.dp-meta div b{font-size:13px}
+.dp-list{list-style:none;font-size:13px;line-height:1.6;color:#333}
+.dp-list li{padding-left:14px;position:relative}
+.dp-list li:before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.foot{text-align:center;font-family:'Space Mono',monospace;font-size:9px;color:var(--mute);letter-spacing:.1em;padding:0 20px 36px}
 </style>
 </head>
 <body>
-
-<header>
-  <div class="h-inner">
-    <div>
-      <div class="h-eye">HYROX DOUBLES · PHASE 2 · LOAD & COMPROMISED RUNNING</div>
-      <div class="h-title">TOEI</div>
-      <div class="h-sub">SUB-80 TARGET (TEAM) · WEEKS 5–8 · WK8 = DELOAD</div>
-    </div>
-    <div class="h-right">
-      <div class="h-stat"><div class="h-stat-v">02</div><div class="h-stat-l">PHASE</div></div>
-      <div class="h-stat"><div class="h-stat-v">SUN</div><div class="h-stat-l">PT DAY</div></div>
-      <div class="h-stat"><div class="h-stat-v">14 FEB</div><div class="h-stat-l">RACE DAY</div></div>
-    </div>
+<div class="header">
+  <div class="eyebrow">HYROX DOUBLES · WEEKS 9–13 · HALF MARATHON 28 NOV</div>
+  <h1>TOEI</h1>
+  <div class="sub">SUB-80 TARGET (TEAM) · WK12 = TAPER · WK13 = RACE WEEK</div>
+  <div class="stats">
+    <div class="stat"><b>28 NOV</b><span>HALF MARATHON</span></div>
+    <div class="stat"><b>SUN</b><span>PT DAY</span></div>
+    <div class="stat"><b>14 FEB</b><span>HYROX</span></div>
   </div>
-</header>
-
+</div>
 <div class="legend">
-  <div class="leg"><div class="leg-dot" style="background:linear-gradient(90deg,#7c3aed,#c026d3);"></div><span class="leg-label">INTERVAL</span></div>
-  <div class="leg"><div class="leg-dot" style="background:#c026d3;"></div><span class="leg-label">LONG RUN</span></div>
-  <div class="leg"><div class="leg-dot" style="background:#e3d3fb;"></div><span class="leg-label">EASY</span></div>
-  <div class="leg"><div class="leg-dot" style="background:#888;"></div><span class="leg-label">LIFT</span></div>
-  <div class="leg"><div class="leg-dot" style="background:#0a0a0a;border:1px solid #c026d3;"></div><span class="leg-label">PT / STATION</span></div>
-  <div class="leg"><div class="leg-dot" style="background:#e0e0e0;border:1px solid #bbb;"></div><span class="leg-label">REST</span></div>
-  <div class="leg" style="background:rgba(124,58,237,.06);border-color:#7c3aed;"><span class="leg-label" style="color:#7c3aed;">TAP DAY → DETAILS</span></div>
+  <div class="lg"><span class="dot dot-int"></span>Interval</div>
+  <div class="lg"><span class="dot dot-long"></span>Long</div>
+  <div class="lg"><span class="dot dot-easy"></span>Easy</div>
+  <div class="lg"><span class="dot dot-lift"></span>Weights</div>
+  <div class="lg"><span class="dot dot-pt"></span>PT w/ Jay</div>
+  <div class="lg"><span class="dot dot-rest"></span>Rest</div>
+  <div class="lg"><span class="dot dot-race"></span>Race</div>
 </div>
-
-<div class="main">
-  <div class="dow-row" id="dow-row"></div>
-  <div id="weeks-container"></div>
-</div>
-
-<footer>
-  <div class="f-brand">TOEI · HYROX DOUBLES · 14 FEB 2027</div>
-  <div class="f-meta">UPDATED MONTHLY BY JAY</div>
-</footer>
-
+<div class="wrap"><div class="cal">
+  <div class="head"><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div><div>SUN</div></div>
+  <div id="cal"></div>
+</div></div>
+<div class="foot">TOEI · HYROX DOUBLES · 14 FEB 2027</div>
 <script>
-const DOW_LABELS = ["MON","TUE","WED","THU","FRI","SAT","SUN"];
-
-const WEEKS = [
-  {
-    label: "WEEK 5 · BUILD", vol: "~19.8 km", deload: false,
-    days: [
-      {date:"28 SEP",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
-      {date:"29 SEP",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
-      {date:"30 SEP",type:"interval",tag:"INTERVAL",label:"Interval — 800m",pace:"6:45–7:00/km",km:"~7.2 km",details:["Warm-up: 2 km easy","Main set: 4 × 800m @ 6:45–7:00/km","Rest: 3 min between reps","Cool down: 2 km easy","New distance this month — up from 400m","Check-in: if this feels comfortable, next week's pace may move faster"]},
-      {date:"1 OCT",type:"easy",tag:"EASY",label:"Easy Run",pace:"9:00–9:30/km",km:"50 min",details:["Easy 50 min @ 9:00–9:30/km","~5.4 km · Zone 2 · relaxed"]},
-      {date:"2 OCT",type:"rest",tag:"REST",label:"Rest",pace:"",km:"",details:["Full rest day"]},
-      {date:"3 OCT",type:"long",tag:"LONG",label:"Long Run",pace:"8:45–9:15/km",km:"65 min",details:["Long run 65 min @ 8:45–9:15/km","~7.2 km · steady aerobic effort"]},
-      {date:"4 OCT",type:"station",tag:"PT",label:"HYROX w/ Jay",pace:"",km:"",details:["Phase 2 begins — compromised running introduced","Doubles pairing with Benz"]},
-    ]
-  },
-  {
-    label: "WEEK 6 · BUILD", vol: "~20.4 km", deload: false,
-    days: [
-      {date:"5 OCT",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
-      {date:"6 OCT",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
-      {date:"7 OCT",type:"interval",tag:"INTERVAL",label:"Interval — 800m",pace:"6:40–6:55/km",km:"~7.2 km",details:["Warm-up: 2 km easy","Main set: 4 × 800m @ 6:40–6:55/km","Rest: 3 min between reps","Cool down: 2 km easy"]},
-      {date:"8 OCT",type:"easy",tag:"EASY",label:"Easy Run",pace:"9:00–9:30/km",km:"50 min",details:["Easy 50 min @ 9:00–9:30/km"]},
-      {date:"9 OCT",type:"rest",tag:"REST",label:"Rest",pace:"",km:"",details:["Full rest day"]},
-      {date:"10 OCT",type:"long",tag:"LONG",label:"Long Run",pace:"8:45–9:15/km",km:"70 min",details:["Long run 70 min @ 8:45–9:15/km","~7.8 km"]},
-      {date:"11 OCT",type:"station",tag:"PT",label:"HYROX w/ Jay",pace:"",km:"",details:["Compromised running continues"]},
-    ]
-  },
-  {
-    label: "WEEK 7 · BUILD", vol: "~21.7 km", deload: false,
-    days: [
-      {date:"12 OCT",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
-      {date:"13 OCT",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
-      {date:"14 OCT",type:"interval",tag:"INTERVAL",label:"Interval — 800m",pace:"6:30–6:45/km",km:"~8.0 km",details:["Warm-up: 2 km easy","Main set: 5 × 800m @ 6:30–6:45/km","Rest: 3 min between reps","Cool down: 2 km easy","One extra rep from last week"]},
-      {date:"15 OCT",type:"easy",tag:"EASY",label:"Easy Run",pace:"9:00–9:30/km",km:"50 min",details:["Easy 50 min @ 9:00–9:30/km"]},
-      {date:"16 OCT",type:"rest",tag:"REST",label:"Rest",pace:"",km:"",details:["Full rest day"]},
-      {date:"17 OCT",type:"long",tag:"LONG",label:"Long Run",pace:"8:45–9:15/km",km:"75 min",details:["Long run 75 min @ 8:45–9:15/km","~8.3 km · final build week before deload"]},
-      {date:"18 OCT",type:"station",tag:"PT",label:"HYROX w/ Jay",pace:"",km:"",details:["Final build-week session before deload"]},
-    ]
-  },
-  {
-    label: "WEEK 8 · DELOAD", vol: "~12.1 km", deload: true,
-    days: [
-      {date:"19 OCT",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program — normal loads unless excessive fatigue"]},
-      {date:"20 OCT",type:"lift",tag:"LIFT",label:"Weight",pace:"",km:"",details:["Own weight training program"]},
-      {date:"21 OCT",type:"interval",tag:"INTERVAL",label:"Interval — 800m (Light)",pace:"6:30–6:45/km",km:"~4.4 km",details:["Warm-up: 1 km easy","Main set: 3 × 800m @ 6:30–6:45/km (same pace as Wk7)","Rest: 3 min between reps","Cool down: 1 km easy","Deload week — reduced reps, pace held"]},
-      {date:"22 OCT",type:"easy",tag:"EASY",label:"Easy Run",pace:"9:00–9:30/km",km:"35 min",details:["Easy 35 min @ 9:00–9:30/km","Deload week — shorter duration"]},
-      {date:"23 OCT",type:"rest",tag:"REST",label:"Rest",pace:"",km:"",details:["Full rest day"]},
-      {date:"24 OCT",type:"easy",tag:"EASY",label:"Easy Run (no long run)",pace:"9:00–9:30/km",km:"35 min",details:["Easy 35 min — replaces this week's long run","Deload week — no long run"]},
-      {date:"25 OCT",type:"station",tag:"PT",label:"HYROX w/ Jay — Light",pace:"",km:"",details:["Technique review only — light loads","No new PRs or max-effort work this week"]},
-    ]
-  },
-];
-
-function render() {
-  const dow = document.getElementById("dow-row");
-  DOW_LABELS.forEach(d => {
-    const el = document.createElement("div");
-    el.className = "dow";
-    el.textContent = d;
-    dow.appendChild(el);
-  });
-
-  const container = document.getElementById("weeks-container");
-
-  WEEKS.forEach((week, wIdx) => {
-    const wr = document.createElement("div");
-    wr.className = "week-row" + (week.deload ? " deload" : "");
-
-    const meta = document.createElement("div");
-    meta.className = "week-meta";
-    meta.innerHTML = `<span class="wm-label">${week.label}</span><span class="wm-vol${week.deload ? ' deload' : ''}">${week.vol}</span>`;
-    wr.appendChild(meta);
-
-    const grid = document.createElement("div");
-    grid.className = "day-grid";
-
-    week.days.forEach((s, dIdx) => {
-      const cell = document.createElement("div");
-      cell.className = `day t-${s.type}`;
-      let inner = `<div class="day-num">${s.date}</div>`;
-      inner += `<div class="day-tag"><span>${s.tag}</span></div>`;
-      inner += `<div class="day-label">${s.label}</div>`;
-      if (s.pace) inner += `<div class="day-pace">${s.pace}</div>`;
-      if (s.km) inner += `<div class="day-pace">${s.km}</div>`;
-      cell.innerHTML = inner;
-      cell.onclick = () => handleClick(wIdx, dIdx, cell, wr);
-      grid.appendChild(cell);
+const WEEKS = [{"label": "WEEK 9 · 31 OCT–1 NOV", "vol": "~10.5 km", "deload": false, "days": [null, null, null, null, null, {"date": "31 Oct", "type": "long", "tag": "LONG", "label": "Long run 85 min", "pace": "7:50–8:20/km", "km": "~10.5 km", "details": ["85 min at long pace, together with Benz", "Practise race-day fuel"]}, {"date": "1 Nov", "type": "station", "tag": "PT w/ JAY", "label": "Stations", "pace": "", "km": "", "details": ["Stations, very little running", "Technique and teamwork"]}]}, {"label": "WEEK 10 · 2–8 NOV", "vol": "~25.6 km", "deload": false, "days": [{"date": "2 Nov", "type": "lift", "tag": "LIFT", "label": "Weights", "pace": "", "km": "", "details": ["Session with your weight PT"]}, {"date": "3 Nov", "type": "lift", "tag": "LIFT", "label": "Weights", "pace": "", "km": "", "details": ["Session with your weight PT"]}, {"date": "4 Nov", "type": "interval", "tag": "INTERVAL", "label": "4 × 800 m", "pace": "6:25–6:40/km", "km": "~7.2 km", "details": ["2 km warm-up + cool-down", "4 × 800 m at 6:25–6:40/km", "3 min rest between reps", "Hold the pace; do not speed up"]}, {"date": "5 Nov", "type": "easy", "tag": "EASY", "label": "Easy 55 min", "pace": "8:05–8:35/km", "km": "~6.6 km", "details": ["Easy and conversational, together with Benz"]}, {"date": "6 Nov", "type": "rest", "tag": "REST", "label": "Rest", "pace": "", "km": "", "details": ["Full rest day", "Sleep, food, walk if you like. No training."]}, {"date": "7 Nov", "type": "long", "tag": "LONG", "label": "Long run 95 min", "pace": "7:50–8:20/km", "km": "~11.8 km", "details": ["95 min at long pace, together", "Fuel as practised"]}, {"date": "8 Nov", "type": "station", "tag": "PT w/ JAY", "label": "Race-load stations", "pace": "", "km": "", "details": ["Race-load stations at your own weights", "Run between stations at easy pace"]}]}, {"label": "WEEK 11 · 9–15 NOV", "vol": "~26.2 km", "deload": false, "days": [{"date": "9 Nov", "type": "lift", "tag": "LIFT", "label": "Weights", "pace": "", "km": "", "details": ["Session with your weight PT"]}, {"date": "10 Nov", "type": "lift", "tag": "LIFT", "label": "Weights", "pace": "", "km": "", "details": ["Session with your weight PT"]}, {"date": "11 Nov", "type": "interval", "tag": "INTERVAL", "label": "4 × 800 m", "pace": "6:25–6:40/km", "km": "~7.2 km", "details": ["2 km warm-up + cool-down", "4 × 800 m at 6:25–6:40/km", "3 min rest between reps", "Hold the pace; do not speed up"]}, {"date": "12 Nov", "type": "easy", "tag": "EASY", "label": "Easy 55 min", "pace": "8:05–8:35/km", "km": "~6.6 km", "details": ["Easy and conversational, together with Benz"]}, {"date": "13 Nov", "type": "rest", "tag": "REST", "label": "Rest", "pace": "", "km": "", "details": ["Full rest day", "Sleep, food, walk if you like. No training."]}, {"date": "14 Nov", "type": "long", "tag": "LONG", "label": "Long run 100 min (peak)", "pace": "7:50–8:20/km", "km": "~12.4 km", "details": ["Peak long run of the block", "100 min at long pace, together", "If anything feels niggly, trim to 85–90 min"]}, {"date": "15 Nov", "type": "station", "tag": "PT w/ JAY", "label": "Light technique", "pace": "", "km": "", "details": ["Light technique, no running", "Recover after the peak long run"]}]}, {"label": "WEEK 12 · 16–22 NOV · TAPER", "vol": "~14.6 km", "deload": true, "days": [{"date": "16 Nov", "type": "lift", "tag": "LIFT", "label": "Weights (less leg)", "pace": "", "km": "", "details": ["Session with your weight PT"]}, {"date": "17 Nov", "type": "lift", "tag": "LIFT", "label": "Weights", "pace": "", "km": "", "details": ["Session with your weight PT"]}, {"date": "18 Nov", "type": "interval", "tag": "INTERVAL", "label": "3 × 800 m", "pace": "6:25–6:40/km", "km": "~4.4 km", "details": ["1 km warm-up + cool-down", "3 × 800 m at 6:25–6:40/km", "3 min rest between reps", "Hold the pace; do not speed up"]}, {"date": "19 Nov", "type": "easy", "tag": "EASY", "label": "Easy 35 min", "pace": "8:05–8:35/km", "km": "~4.2 km", "details": ["Easy and conversational, together with Benz"]}, {"date": "20 Nov", "type": "rest", "tag": "REST", "label": "Rest", "pace": "", "km": "", "details": ["Full rest day", "Sleep, food, walk if you like. No training."]}, {"date": "21 Nov", "type": "long", "tag": "LONG", "label": "Easy 50 min", "pace": "7:50–8:20/km", "km": "~6.0 km", "details": ["50 min easy, no long run this week"]}, {"date": "22 Nov", "type": "station", "tag": "PT w/ JAY", "label": "Technique only", "pace": "", "km": "", "details": ["Technique only, no new loads"]}]}, {"label": "WEEK 13 · 23–29 NOV · RACE WEEK", "vol": "~26.5 km incl. race", "deload": true, "days": [{"date": "23 Nov", "type": "lift", "tag": "LIFT", "label": "Weights (no heavy legs)", "pace": "", "km": "", "details": ["Keep it light; no heavy legs"]}, {"date": "24 Nov", "type": "lift", "tag": "LIFT", "label": "Weights, light", "pace": "", "km": "", "details": ["Session with your weight PT"]}, {"date": "25 Nov", "type": "easy", "tag": "EASY", "label": "Easy 25 min + 4 strides", "pace": "8:05–8:35/km", "km": "~3.0 km", "details": ["25 min easy", "Finish with 4 × 20 sec relaxed strides"]}, {"date": "26 Nov", "type": "easy", "tag": "EASY", "label": "Easy 20 min / off", "pace": "8:05–8:35/km", "km": "~2.4 km", "details": ["20 min easy, or take the day off"]}, {"date": "27 Nov", "type": "rest", "tag": "REST", "label": "Rest", "pace": "", "km": "", "details": ["Full rest. Lay out kit, plan breakfast.", "Sleep, food, walk if you like. No training."]}, {"date": "28 Nov", "type": "race", "tag": "RACE", "label": "HALF MARATHON", "pace": "Goal 2:40–2:50 (7:35–8:03/km)", "km": "21.1 km", "details": ["Goal time 2:40–2:50", "Start 10–15 sec/km slower than goal for the first 10 km", "Run-walk through aid stations if needed", "Fuel as practised"]}, {"date": "29 Nov", "type": "rest", "tag": "REST", "label": "Off / easy walk", "pace": "", "km": "", "details": ["Off, or an easy walk only"]}]}];
+function esc(s){return String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+function render(){
+  const root=document.getElementById('cal');
+  root.innerHTML='';
+  WEEKS.forEach(function(w){
+    const row=document.createElement('div');
+    row.className='week-row'+(w.deload?' deload':'');
+    row.innerHTML='<div class="wk-top"><span class="l">'+esc(w.label)+'</span><span class="v">'+esc(w.vol)+'</span></div>';
+    const days=document.createElement('div');days.className='days';
+    const panel=document.createElement('div');panel.className='detail-panel';
+    let openEl=null;
+    w.days.forEach(function(d){
+      const el=document.createElement('div');
+      if(d===null){el.className='day empty';days.appendChild(el);return;}
+      el.className='day t-'+d.type;
+      el.innerHTML='<div class="dt">'+esc(d.date)+'</div><div class="tag">'+esc(d.tag)+'</div><div class="lb">'+esc(d.label)+'</div><div class="km">'+esc(d.km)+'</div>';
+      el.addEventListener('click',function(){
+        if(openEl===el){panel.classList.remove('show');el.classList.remove('open');openEl=null;return;}
+        if(openEl)openEl.classList.remove('open');
+        openEl=el;el.classList.add('open');
+        panel.innerHTML='<div class="dp-title">'+esc(d.date)+' · '+esc(d.label)+'</div>'+
+          '<div class="dp-meta"><div><span>PACE</span><b>'+esc(d.pace||'—')+'</b></div><div><span>VOLUME</span><b>'+esc(d.km||'—')+'</b></div><div><span>TYPE</span><b>'+esc(d.tag)+'</b></div></div>'+
+          '<ul class="dp-list">'+(d.details||[]).map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>';
+        panel.classList.add('show');
+      });
+      days.appendChild(el);
     });
-
-    wr.appendChild(grid);
-
-    const panel = document.createElement("div");
-    panel.className = "detail-panel";
-    wr.appendChild(panel);
-
-    container.appendChild(wr);
+    row.appendChild(days);row.appendChild(panel);
+    root.appendChild(row);
   });
 }
-
-let selected = null;
-
-function handleClick(wIdx, dIdx, cell, weekRow) {
-  const panel = weekRow.querySelector(".detail-panel");
-  const key = wIdx + "-" + dIdx;
-
-  if (selected === key && panel.classList.contains("open")) {
-    panel.classList.remove("open");
-    cell.classList.remove("selected");
-    selected = null;
-    return;
-  }
-
-  document.querySelectorAll(".day.selected").forEach(d => d.classList.remove("selected"));
-  document.querySelectorAll(".detail-panel.open").forEach(p => p.classList.remove("open"));
-
-  cell.classList.add("selected");
-  selected = key;
-
-  const s = WEEKS[wIdx].days[dIdx];
-  panel.innerHTML = `
-    <div class="dp-head">
-      <div>
-        <div class="dp-title">${s.label}</div>
-        <div class="dp-date">${s.date} · ${s.tag}</div>
-      </div>
-      <button class="dp-close">✕ CLOSE</button>
-    </div>
-    <div class="dp-stats">
-      ${s.pace ? `<div class="dp-stat"><div class="dp-stat-l">PACE</div><div class="dp-stat-v">${s.pace}</div></div>` : ""}
-      ${s.km ? `<div class="dp-stat"><div class="dp-stat-l">VOLUME</div><div class="dp-stat-v">${s.km}</div></div>` : ""}
-      <div class="dp-stat"><div class="dp-stat-l">TYPE</div><div class="dp-stat-v">${s.tag}</div></div>
-    </div>
-    <div class="dp-breakdown">
-      <div class="dp-breakdown-label">SESSION BREAKDOWN</div>
-      <div class="dp-items">
-        ${s.details.map(line => `
-          <div class="dp-item">
-            <div class="dp-item-dot"></div>
-            <div class="dp-item-text">${line}</div>
-          </div>
-        `).join("")}
-      </div>
-    </div>
-  `;
-  panel.querySelector(".dp-close").onclick = () => {
-    panel.classList.remove("open");
-    cell.classList.remove("selected");
-    selected = null;
-  };
-  panel.classList.add("open");
-}
-
 render();
 </script>
 </body>
