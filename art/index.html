@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Art · Nov Calendar</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f7f8;--s2:#e6eff1;--s3:#d2e1e5;--s4:#b5cdd3;--accent:#0e7490;--accent2:#0e7490;--tint:#e2f1f5;--grad:linear-gradient(90deg,var(--accent),var(--accent2));--ink:#0a0a0a;--mute:#888}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh}
+.header{padding:28px 20px 18px;background:transparent;border-bottom:1px solid var(--s3)}
+.eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:#0e7490;text-transform:uppercase}
+h1{font-family:'Bebas Neue',sans-serif;font-size:56px;letter-spacing:.02em;line-height:1;margin:6px 0 4px}
+.sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--mute);letter-spacing:.06em;line-height:1.6}
+.stats{display:flex;gap:22px;margin-top:16px;flex-wrap:wrap}
+.stat{border-left:2px solid #0e7490;padding-left:10px}
+.stat b{display:block;font-family:'Bebas Neue',sans-serif;font-size:26px;font-weight:400;color:#0e7490;line-height:1}
+.stat span{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--mute)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;padding:14px 20px 4px}
+.lg{display:flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:9px;color:#555;letter-spacing:.06em;text-transform:uppercase}
+.dot{width:8px;height:8px;border-radius:50%}
+.dot-int{background:#0e7490}.dot-long{background:#0e7490}.dot-easy{background:#a5d3df}
+.dot-lift{background:var(--s4)}.dot-pt{background:#0e7490}.dot-rest{background:var(--s3)}.dot-race{background:var(--grad)}
+.wrap{overflow-x:auto;padding:8px 12px 40px}
+.cal{min-width:760px}
+.head,.week-row .days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.head{padding:0 0 4px}
+.head div{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--mute);text-align:center}
+.week-row{margin-bottom:14px}
+.wk-top{display:flex;justify-content:space-between;align-items:baseline;padding:10px 4px 6px}
+.wk-top .l{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.04em}
+.wk-top .v{font-family:'Space Mono',monospace;font-size:10px;color:var(--mute)}
+.week-row.deload .wk-top{background:var(--grad);color:#fff;padding:8px 10px;border-radius:6px 6px 0 0}
+.week-row.deload .wk-top .v{color:#ffffff}
+.week-row.deload .day{background:#f0f8fa}
+.day{min-height:96px;background:#fff;border:1px solid var(--s3);border-radius:6px;padding:7px 6px;cursor:pointer;display:flex;flex-direction:column;gap:4px;transition:transform .1s}
+.day:active{transform:scale(.97)}
+.day.empty{background:transparent;border:1px dashed var(--s3);cursor:default}
+.day .dt{font-family:'Space Mono',monospace;font-size:9px;color:var(--mute)}
+.day .tag{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.06em;padding:2px 5px;border-radius:3px;align-self:flex-start;text-transform:uppercase;font-weight:700}
+.day .lb{font-size:11px;font-weight:700;line-height:1.25}
+.day .km{font-family:'Space Mono',monospace;font-size:9px;color:var(--mute);margin-top:auto}
+.t-interval{background:var(--s2)}.t-interval .tag{background:#0e7490;color:#ffffff}
+.t-easy .tag{background:rgba(14,116,144,.08);color:#0e7490}
+.t-long{background:var(--tint)}.t-long .tag{background:rgba(14,116,144,.15);color:#0b566b;border-left:2px solid #0e7490}
+.t-lift .tag{background:var(--s3);color:#444}
+.t-station{background:var(--tint)}.t-station .tag{background:var(--ink);color:#fff}
+.t-rest{background:var(--bg)}.t-rest .tag{background:var(--s3);color:#777}.t-rest .lb{color:#999;font-weight:500}
+.t-race{border:2px solid var(--accent);background:var(--tint)}.t-race .tag{background:var(--grad);color:#fff}
+.day.open{outline:2px solid var(--accent)}
+.detail-panel{display:none;margin-top:6px;background:#fff;border:1px solid var(--s3);border-left:3px solid var(--accent);border-radius:6px;padding:14px 16px}
+.detail-panel.show{display:block}
+.dp-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.03em}
+.dp-meta{display:flex;gap:22px;margin:8px 0 10px;flex-wrap:wrap}
+.dp-meta div span{display:block;font-family:'Space Mono',monospace;font-size:8px;color:var(--mute);letter-spacing:.1em}
+.dp-meta div b{font-size:13px}
+.dp-list{list-style:none;font-size:13px;line-height:1.6;color:#333}
+.dp-list li{padding-left:14px;position:relative}
+.dp-list li:before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.foot{text-align:center;font-family:'Space Mono',monospace;font-size:9px;color:var(--mute);letter-spacing:.1em;padding:0 20px 36px}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="eyebrow">HYROX OPEN DOUBLES · WEEKS 13–18</div>
+  <h1>ART</h1>
+  <div class="sub">GOAL ~80 MIN · RUN BASE BUILD · PACES PROVISIONAL</div>
+  <div class="stats">
+<div class="stat"><b>23 NOV</b><span>PLAN START</span></div>
+    <div class="stat"><b>SUN</b><span>PT DAY</span></div>
+    <div class="stat"><b>14 FEB</b><span>HYROX</span></div>
+  </div>
+</div>
+<div class="legend">
+  <div class="lg"><span class="dot dot-int"></span>Interval</div>
+  <div class="lg"><span class="dot dot-long"></span>Long</div>
+  <div class="lg"><span class="dot dot-easy"></span>Easy</div>
+  <div class="lg"><span class="dot dot-lift"></span>Weights</div>
+  <div class="lg"><span class="dot dot-pt"></span>PT w/ Jay</div>
+  <div class="lg"><span class="dot dot-rest"></span>Rest</div>
+  <div class="lg"><span class="dot dot-race"></span>Race</div>
+</div>
+<div class="wrap"><div class="cal">
+  <div class="head"><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div><div>SUN</div></div>
+  <div id="cal"></div>
+</div></div>
+<div class="foot">ART · HYROX OPEN DOUBLES · 14 FEB 2027</div>
+<script>
+const WEEKS = [{"label": "WEEK 13 · 23–29 NOV · START", "vol": "~12 km + Sun", "deload": false, "days": [{"date": "23 Nov", "type": "rest", "tag": "OFF", "label": "Off", "pace": "", "km": "", "details": ["Not available this day", "Optional: 20 min easy walk"]}, {"date": "24 Nov", "type": "rest", "tag": "OFF", "label": "Off", "pace": "", "km": "", "details": ["Not available this day", "Optional: 20 min easy walk"]}, {"date": "25 Nov", "type": "rest", "tag": "OFF", "label": "Off", "pace": "", "km": "", "details": ["Not available this day", "Optional: 20 min easy walk"]}, {"date": "26 Nov", "type": "easy", "tag": "EASY", "label": "Easy run 35 min + upper weights", "pace": "7:45–8:15/km", "km": "~4.4 km", "details": ["35 min easy at 7:45–8:15/km", "Conversational pace: if you can't talk, slow down", "Walk 1 min if you need it; start slower than it feels", "Finish with 4 × 20 sec relaxed strides", "Upper", "Row 3 × 10; shoulder press 3 × 10; pull-down 3 × 10"]}, {"date": "27 Nov", "type": "easy", "tag": "EASY", "label": "Easy run 30 min + lower weights", "pace": "7:45–8:15/km", "km": "~3.8 km", "details": ["30 min easy at 7:45–8:15/km", "Conversational pace: if you can't talk, slow down", "Walk 1 min if you need it; start slower than it feels", "Lower", "Goblet squat to full depth with heels raised, 3 × 8, 3 sec pause at the bottom; RDL 3 × 10; split squat 3 × 8 each side"]}, {"date": "28 Nov", "type": "easy", "tag": "EASY", "label": "Easy run 30 min", "pace": "7:45–8:15/km", "km": "~3.8 km", "details": ["30 min easy at 7:45–8:15/km", "Conversational pace: if you can't talk, slow down", "Walk 1 min if you need it; start slower than it feels"]}, {"date": "29 Nov", "type": "station", "tag": "PT w/ JAY", "label": "Hyrox session at T One Building", "pace": "", "km": "", "details": ["Hyrox session with Jay at T One Building"]}]}, {"label": "WEEK 14 · 30 NOV–6 DEC", "vol": "~15 km + Sun", "deload": false, "days": [{"date": "30 Nov", "type": "rest", "tag": "OFF", "label": "Off", "pace": "", "km": "", "details": ["Not available this day", "Optional: 20 min easy walk"]}, {"date": "1 Dec", "type": "rest", "tag": "OFF", "label": "Off", "pace": "", "km": "", "details": ["Not available this day", "Optional: 20 min easy walk"]}, {"date": "2 Dec", "type": "rest", "tag": "OFF", "label": "Off", "pace": "", "km": "", "details": ["Not available this day", "Optional: 20 min easy walk"]}, {"date": "3 Dec", "type": "interval", "tag": "INTERVAL", "label": "6 × 400 m + upper weights", "pace": "6:20–6:35/km", "km": "~4.4 km", "details": ["1 km warm-up + 1 km cool-down", "6 × 400 m at 6:20–6:35/km", "2 min standing rest between reps", "Upper", "Row 3 × 10; shoulder press 3 × 10; pull-down 3 × 10"]}, {"date": "4 Dec", "type": "easy", "tag": "EASY", "label": "Easy run 40 min + lower weights", "pace": "7:45–8:15/km", "km": "~5.0 km", "details": ["40 min easy at 7:45–8:15/km", "Conversational pace: if you can't talk, slow down", "Walk 1 min if you need it; start slower than it feels", "Lower", "Goblet squat to full depth with heels raised, 3 × 8, 3 sec pause at the bottom; RDL 3 × 10; split squat 3 × 8 each side"]}, {"date": "5 Dec", "type": "easy", "tag": "EASY", "label": "Easy run 50 min", "pace": "7:45–8:15/km", "km": "~6.2 km", "details": ["50 min easy at 7:45–8:15/km", "Conversational pace: if you can't talk, slow down", "Walk 1 min if you need it; start slower than it feels"]}, {"date": "6 Dec", "type": "station", "tag": "PT w/ JAY", "label": "Hyrox session at T One Building", "pace": "", "km": "", "details": ["Hyrox session with Jay at T One Building"]}]}, {"label": "WEEK 15 · 7–13 DEC", "vol": "~18 km + Sun", "deload": false, "days": [{"date": "7 Dec", "type": "rest", "tag": "OFF", "label": "Off", "pace": "", "km": "", "details": ["Not available this day", "Optional: 20 min easy walk"]}, {"date": "8 Dec", "type": "rest", "tag": "OFF", "label": "Off", "pace": "", "km": "", "details": ["Not available this day", "Optional: 20 min easy walk"]}, {"date": "9 Dec", "type": "rest", "tag": "OFF", "label": "Off", "pace": "", "km": "", "details": ["Not available this day", "Optional: 20 min easy walk"]}, {"date": "10 Dec", "type": "interval", "tag": "INTERVAL", "label": "4 × 800 m + upper weights", "pace": "6:25–6:40/km", "km": "~5.2 km", "details": ["1 km warm-up + 1 km cool-down", "4 × 800 m at 6:25–6:40/km", "3 min rest between reps", "Upper", "Row 3 × 10; shoulder press 3 × 10; pull-down 3 × 10"]}, {"date": "11 Dec", "type": "easy", "tag": "EASY", "label": "Easy run 45 min + lower weights", "pace": "7:45–8:15/km", "km": "~5.6 km", "details": ["45 min easy at 7:45–8:15/km", "Conversational pace: if you can't talk, slow down", "Walk 1 min if you need it; start slower than it feels", "Lower", "Goblet squat to full depth with heels raised, 3 × 8, 3 sec pause at the bottom; RDL 3 × 10; split squat 3 × 8 each side"]}, {"date": "12 Dec", "type": "easy", "tag": "EASY", "label": "Easy run 55 min", "pace": "7:45–8:15/km", "km": "~6.8 km", "details": ["55 min easy at 7:45–8:15/km", "Conversational pace: if you can't talk, slow down", "Walk 1 min if you need it; start slower than it feels"]}, {"date": "13 Dec", "type": "station", "tag": "PT w/ JAY", "label": "Hyrox session at T One Building", "pace": "", "km": "", "details": ["Hyrox session with Jay at T One Building"]}]}, {"label": "WEEK 16 · 14–20 DEC", "vol": "~20 km + Sun", "deload": false, "days": [{"date": "14 Dec", "type": "rest", "tag": "OFF", "label": "Off", "pace": "", "km": "", "details": ["Not available this day", "Optional: 20 min easy walk"]}, {"date": "15 Dec", "type": "rest", "tag": "OFF", "label": "Off", "pace": "", "km": "", "details": ["Not available this day", "Optional: 20 min easy walk"]}, {"date": "16 Dec", "type": "rest", "tag": "OFF", "label": "Off", "pace": "", "km": "", "details": ["Not available this day", "Optional: 20 min easy walk"]}, {"date": "17 Dec", "type": "interval", "tag": "INTERVAL", "label": "5 × 800 m + upper weights", "pace": "6:25–6:40/km", "km": "~6.0 km", "details": ["1 km warm-up + 1 km cool-down", "5 × 800 m at 6:25–6:40/km", "3 min rest between reps", "Upper", "Row 3 × 10; shoulder press 3 × 10; pull-down 3 × 10"]}, {"date": "18 Dec", "type": "easy", "tag": "EASY", "label": "Easy run 50 min + lower weights", "pace": "7:45–8:15/km", "km": "~6.2 km", "details": ["50 min easy at 7:45–8:15/km", "Conversational pace: if you can't talk, slow down", "Walk 1 min if you need it; start slower than it feels", "Lower", "Goblet squat to full depth with heels raised, 3 × 8, 3 sec pause at the bottom; RDL 3 × 10; split squat 3 × 8 each side"]}, {"date": "19 Dec", "type": "easy", "tag": "EASY", "label": "Easy run 60 min", "pace": "7:45–8:15/km", "km": "~7.5 km", "details": ["60 min easy at 7:45–8:15/km", "Conversational pace: if you can't talk, slow down", "Walk 1 min if you need it; start slower than it feels"]}, {"date": "20 Dec", "type": "station", "tag": "PT w/ JAY", "label": "Hyrox session at T One Building", "pace": "", "km": "", "details": ["Hyrox session with Jay at T One Building"]}]}, {"label": "WEEK 17 · 21–27 DEC · EASIER WEEK", "vol": "~16 km + Sun", "deload": true, "days": [{"date": "21 Dec", "type": "rest", "tag": "OFF", "label": "Off", "pace": "", "km": "", "details": ["Not available this day", "Optional: 20 min easy walk"]}, {"date": "22 Dec", "type": "rest", "tag": "OFF", "label": "Off", "pace": "", "km": "", "details": ["Not available this day", "Optional: 20 min easy walk"]}, {"date": "23 Dec", "type": "rest", "tag": "OFF", "label": "Off", "pace": "", "km": "", "details": ["Not available this day", "Optional: 20 min easy walk"]}, {"date": "24 Dec", "type": "interval", "tag": "INTERVAL", "label": "4 × 800 m + upper weights", "pace": "6:25–6:40/km", "km": "~5.2 km", "details": ["1 km warm-up + 1 km cool-down", "4 × 800 m at 6:25–6:40/km", "3 min rest between reps", "Upper", "Row 3 × 10; shoulder press 3 × 10; pull-down 3 × 10"]}, {"date": "25 Dec", "type": "easy", "tag": "EASY", "label": "Easy run 40 min + lower weights", "pace": "7:45–8:15/km", "km": "~5.0 km", "details": ["40 min easy at 7:45–8:15/km", "Conversational pace: if you can't talk, slow down", "Walk 1 min if you need it; start slower than it feels", "Lower", "Goblet squat to full depth with heels raised, 3 × 8, 3 sec pause at the bottom; RDL 3 × 10; split squat 3 × 8 each side"]}, {"date": "26 Dec", "type": "easy", "tag": "EASY", "label": "Easy run 50 min", "pace": "7:45–8:15/km", "km": "~6.2 km", "details": ["50 min easy at 7:45–8:15/km", "Conversational pace: if you can't talk, slow down", "Walk 1 min if you need it; start slower than it feels"]}, {"date": "27 Dec", "type": "station", "tag": "PT w/ JAY", "label": "Hyrox session at T One Building", "pace": "", "km": "", "details": ["Hyrox session with Jay at T One Building"]}]}, {"label": "WEEK 18 · 28 DEC–3 JAN", "vol": "~21 km + Sun", "deload": false, "days": [{"date": "28 Dec", "type": "rest", "tag": "OFF", "label": "Off", "pace": "", "km": "", "details": ["Not available this day", "Optional: 20 min easy walk"]}, {"date": "29 Dec", "type": "rest", "tag": "OFF", "label": "Off", "pace": "", "km": "", "details": ["Not available this day", "Optional: 20 min easy walk"]}, {"date": "30 Dec", "type": "rest", "tag": "OFF", "label": "Off", "pace": "", "km": "", "details": ["Not available this day", "Optional: 20 min easy walk"]}, {"date": "31 Dec", "type": "interval", "tag": "INTERVAL", "label": "5 × 1000 m + upper weights", "pace": "6:25–6:40/km", "km": "~7.0 km", "details": ["1 km warm-up + 1 km cool-down", "5 × 1000 m at 6:25–6:40/km", "3 min rest between reps", "Upper", "Row 3 × 10; shoulder press 3 × 10; pull-down 3 × 10"]}, {"date": "1 Jan", "type": "easy", "tag": "EASY", "label": "Easy run 45 min + lower weights", "pace": "7:45–8:15/km", "km": "~5.6 km", "details": ["45 min easy at 7:45–8:15/km", "Conversational pace: if you can't talk, slow down", "Walk 1 min if you need it; start slower than it feels", "Lower", "Goblet squat to full depth with heels raised, 3 × 8, 3 sec pause at the bottom; RDL 3 × 10; split squat 3 × 8 each side"]}, {"date": "2 Jan", "type": "easy", "tag": "EASY", "label": "Easy run 65 min", "pace": "7:45–8:15/km", "km": "~8.1 km", "details": ["65 min easy at 7:45–8:15/km", "Conversational pace: if you can't talk, slow down", "Walk 1 min if you need it; start slower than it feels"]}, {"date": "3 Jan", "type": "station", "tag": "PT w/ JAY", "label": "Hyrox session at T One Building", "pace": "", "km": "", "details": ["Hyrox session with Jay at T One Building"]}]}];
+function esc(s){return String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+function render(){
+  const root=document.getElementById('cal');
+  root.innerHTML='';
+  WEEKS.forEach(function(w){
+    const row=document.createElement('div');
+    row.className='week-row'+(w.deload?' deload':'');
+    row.innerHTML='<div class="wk-top"><span class="l">'+esc(w.label)+'</span><span class="v">'+esc(w.vol)+'</span></div>';
+    const days=document.createElement('div');days.className='days';
+    const panel=document.createElement('div');panel.className='detail-panel';
+    let openEl=null;
+    w.days.forEach(function(d){
+      const el=document.createElement('div');
+      if(d===null){el.className='day empty';days.appendChild(el);return;}
+      el.className='day t-'+d.type;
+      el.innerHTML='<div class="dt">'+esc(d.date)+'</div><div class="tag">'+esc(d.tag)+'</div><div class="lb">'+esc(d.label)+'</div><div class="km">'+esc(d.km)+'</div>';
+      el.addEventListener('click',function(){
+        if(openEl===el){panel.classList.remove('show');el.classList.remove('open');openEl=null;return;}
+        if(openEl)openEl.classList.remove('open');
+        openEl=el;el.classList.add('open');
+        panel.innerHTML='<div class="dp-title">'+esc(d.date)+' · '+esc(d.label)+'</div>'+
+          '<div class="dp-meta"><div><span>PACE</span><b>'+esc(d.pace||'—')+'</b></div><div><span>VOLUME</span><b>'+esc(d.km||'—')+'</b></div><div><span>TYPE</span><b>'+esc(d.tag)+'</b></div></div>'+
+          '<ul class="dp-list">'+(d.details||[]).map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>';
+        panel.classList.add('show');
+      });
+      days.appendChild(el);
+    });
+    row.appendChild(days);row.appendChild(panel);
+    root.appendChild(row);
+  });
+}
+render();
+</script>
+</body>
+</html>
