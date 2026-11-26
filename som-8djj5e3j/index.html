@@ -3,79 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="noindex, nofollow">
 <title>Som · HYROX Calendar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0e0e0e; --panel:#171717; --cell:#1d1d1d; --line:#2a2a2a;
-    --text:#f2f2f2; --muted:#8a8a8a;
-    --accent:#ff7a59;           /* Som theme */
-    --pt:#ff7a59; --run:#4ade80; --str:#60a5fa; --easy:#a3e635; --rest:#3a3a3a; --test:#facc15;
+    --bg:#f6f1ea; --panel:#ffffff; --cell:#fffdfa; --line:#e7ddd2;
+    --text:#2a2231; --muted:#7d7180;
+    --accent:#8c3b62;           /* Som theme: berry */
+    --pt:#8c3b62; --run:#5f8a6a; --str:#5b7493; --easy:#9ab489; --rest:#d8cec3; --test:#c9973a;
+    --serif:'Fraunces',Georgia,serif; --sans:'DM Sans',system-ui,sans-serif; --mono:'DM Mono',ui-monospace,monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;padding-bottom:40px}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;padding-bottom:48px}
   .wrap{max-width:1100px;margin:0 auto;padding:0 16px}
-  header{padding:28px 0 18px;border-bottom:1px solid var(--line)}
-  .tag{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
-  h1{font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:1;letter-spacing:1px;margin-top:6px}
+
+  header{position:relative;margin:16px 0 8px;padding:28px 24px 24px;border-radius:24px;overflow:hidden;
+    background:radial-gradient(circle at 92% 8%,rgba(140,59,98,.16),transparent 45%),radial-gradient(circle at 0% 100%,rgba(95,138,106,.14),transparent 45%),#fbf6f1;
+    border:1px solid var(--line)}
+  .tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+  h1{font-family:var(--serif);font-weight:600;font-size:60px;line-height:1;letter-spacing:-.01em;margin-top:10px;color:var(--text)}
   h1 span{color:var(--accent)}
-  .sub{font-size:14px;color:var(--muted);margin-top:6px}
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}
-  .stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
-  .stat b{display:block;font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.5px}
-  .stat small{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-  .paces{margin-top:16px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
-  .paces h3,.legend h3{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
-  .pace-row{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:'Space Mono',monospace;font-size:13px}
+  .sub{font-size:15px;color:var(--muted);margin-top:8px}
+  .motto{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--accent);margin-top:14px}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+  .stat b{display:block;font-family:var(--serif);font-weight:600;font-size:26px;color:var(--accent);line-height:1.15}
+  .stat small{font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .paces{margin-top:12px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px 16px}
+  .paces h3{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:8px;font-weight:500}
+  .pace-row{display:flex;flex-wrap:wrap;gap:6px 20px;font-family:var(--mono);font-size:13px}
   .pace-row span em{font-style:normal;color:var(--muted)}
-  .legend{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px 16px;font-size:12px;color:var(--muted)}
-  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  .legend{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px 16px;font-size:12px;color:var(--muted)}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
 
-  .week{margin-top:24px}
-  .week-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:8px}
-  .week-head h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.5px}
-  .week-head h2 small{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.06em;margin-left:8px}
-  .week-head .vol{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted)}
-  .badge{font-family:'Space Mono',monospace;font-size:10px;padding:2px 7px;border-radius:20px;border:1px solid var(--accent);color:var(--accent);margin-left:8px;vertical-align:4px}
-  .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
-  .cell{background:var(--cell);border:1px solid var(--line);border-radius:10px;padding:9px 9px 10px;min-height:96px;cursor:pointer;position:relative;transition:border-color .15s, transform .15s}
-  .cell:hover{border-color:#444}
-  .cell.active{border-color:var(--accent);transform:translateY(-1px)}
-  .cell.rest{cursor:default;opacity:.55}
-  .cell .d{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
-  .cell .bar{height:3px;border-radius:2px;margin:6px 0 7px}
+  .week{margin-top:28px}
+  .week-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+  .week-head h2{font-family:var(--serif);font-weight:600;font-size:26px}
+  .week-head h2 small{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em;margin-left:10px;font-weight:400}
+  .week-head .vol{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .badge{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:20px;background:rgba(95,138,106,.14);color:#46705a;margin-left:10px;vertical-align:5px;letter-spacing:.06em}
+  .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+  .cell{background:var(--cell);border:1px solid var(--line);border-radius:14px;padding:10px 10px 12px;min-height:100px;cursor:pointer;position:relative;
+    box-shadow:0 1px 2px rgba(42,34,49,.04);transition:border-color .15s, transform .15s, box-shadow .15s}
+  .cell:hover{border-color:#d4c6b8;box-shadow:0 6px 16px rgba(42,34,49,.07)}
+  .cell.active{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 20px rgba(140,59,98,.14)}
+  .cell.rest{cursor:default;background:transparent;box-shadow:none;border-style:dashed}
+  .cell.rest .t{color:var(--muted);font-weight:500}
+  .cell .d{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+  .cell .bar{height:4px;border-radius:4px;margin:7px 0 8px;width:28px}
   .cell .t{font-size:13px;font-weight:700;line-height:1.25}
-  .cell .s{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px;line-height:1.35}
-  .cell.done::after{content:"✓";position:absolute;top:7px;right:9px;font-size:12px;color:var(--run)}
-  .cell.today{box-shadow:0 0 0 1px var(--accent) inset}
+  .cell .s{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.35}
+  .cell.done::after{content:"✓";position:absolute;top:8px;right:10px;width:18px;height:18px;border-radius:50%;background:rgba(95,138,106,.15);color:#46705a;font-size:11px;display:grid;place-items:center}
+  .cell.today{border-color:var(--accent);box-shadow:0 0 0 2px rgba(140,59,98,.15)}
 
-  .detail{display:none;margin-top:8px;background:var(--panel);border:1px solid var(--accent);border-radius:12px;padding:16px}
+  .detail{display:none;margin-top:10px;background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:16px;padding:18px;box-shadow:0 10px 24px rgba(42,34,49,.06)}
   .detail.open{display:block}
   .detail .dh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-  .detail h4{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.5px;line-height:1}
-  .detail .when{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px}
-  .detail button{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:4px 10px;font-family:'Space Mono',monospace;font-size:11px;cursor:pointer}
+  .detail h4{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.1}
+  .detail .when{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px}
+  .detail button{background:none;border:1px solid var(--line);color:var(--muted);border-radius:20px;padding:5px 12px;font-family:var(--sans);font-size:12px;cursor:pointer}
+  .detail button:hover{color:var(--text);border-color:#cbbdb0}
   .detail .blk{margin-top:14px}
-  .detail .blk h5{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+  .detail .blk h5{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;font-weight:500}
   .detail ul{list-style:none}
-  .detail li{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .detail li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
   .detail li:last-child{border-bottom:none}
-  .detail li span:last-child{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);text-align:right;white-space:nowrap}
-  .detail li a{color:var(--text);text-decoration:none;border-bottom:1px dotted #555}
-  .detail .note{margin-top:12px;font-family:'Space Mono',monospace;font-size:12px;color:var(--muted)}
+  .detail li span:last-child{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right;white-space:nowrap}
+  .detail li a{color:var(--text);text-decoration:none;border-bottom:1px solid rgba(140,59,98,.35)}
+  .detail li a:hover{color:var(--accent)}
+  .detail .note{margin-top:12px;font-size:13px;color:var(--muted)}
 
-  footer{margin-top:32px;padding-top:16px;border-top:1px solid var(--line);font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);line-height:1.7}
+  footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);line-height:1.8}
 
   @media (max-width:760px){
-    h1{font-size:44px}
+    header{padding:22px 18px 18px;border-radius:20px}
+    h1{font-size:46px}
     .stats{grid-template-columns:repeat(2,1fr)}
     .grid{grid-template-columns:1fr}
-    .cell{min-height:auto;display:grid;grid-template-columns:62px 1fr;column-gap:10px;align-items:center;padding:10px 12px}
+    .cell{min-height:auto;display:grid;grid-template-columns:62px 1fr;column-gap:10px;align-items:center;padding:11px 12px;border-left:4px solid var(--c,#ccc)}
     .cell .d{grid-row:1/3}
     .cell .bar{display:none}
-    .cell{border-left:4px solid var(--c,#333)}
     .cell .s{margin-top:2px}
   }
 </style>
@@ -84,12 +93,13 @@
 <div class="wrap">
   <header>
     <div class="tag">Jay PT · HYROX Calendar · Block 1</div>
-    <h1>SOM <span>·</span> DOUBLES</h1>
-    <div class="sub">HYROX Open Doubles (Women) · Sun 14 Feb 2027 · 23 Nov – 3 Jan</div>
+    <h1>Som<span>.</span></h1>
+    <div class="sub">HYROX Women's Doubles · Sun 14 Feb 2027 · 23 Nov – 3 Jan</div>
+    <div class="motto">Strong, steady, every week.</div>
     <div class="stats">
       <div class="stat"><b id="countdown">—</b><small>Days to race</small></div>
-      <div class="stat"><b>SUB 1:40</b><small>Target finish</small></div>
-      <div class="stat"><b>4.05 KM</b><small>30-min test · 7:26/km</small></div>
+      <div class="stat"><b>Sub 1:40</b><small>Target finish</small></div>
+      <div class="stat"><b>4.05 km</b><small>30-min test · 7:26/km</small></div>
       <div class="stat"><b>4–5</b><small>Days / week</small></div>
     </div>
     <div class="paces">
@@ -200,7 +210,7 @@ weeks.forEach((w, wi) => {
   const end = new Date(y, m-1, d+6);
   const sec = document.createElement("section");
   sec.className = "week";
-  sec.innerHTML = `<div class="week-head"><h2>Week ${w.n}${w.deload?'<span class="badge">DELOAD</span>':''}<small>${fmt(start)} – ${fmt(end)}</small></h2><div class="vol">Run ${w.vol} min</div></div>`;
+  sec.innerHTML = `<div class="week-head"><h2>Week ${w.n}${w.deload?'<span class="badge">EASIER WEEK</span>':''}<small>${fmt(start)} – ${fmt(end)}</small></h2><div class="vol">Run ${w.vol} min</div></div>`;
   const grid = document.createElement("div"); grid.className = "grid";
   const panel = document.createElement("div"); panel.className = "detail";
   w.days.forEach((s, di) => {
