@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Som · HYROX Calendar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e0e0e; --panel:#171717; --cell:#1d1d1d; --line:#2a2a2a;
+    --text:#f2f2f2; --muted:#8a8a8a;
+    --accent:#ff7a59;           /* Som theme */
+    --pt:#ff7a59; --run:#4ade80; --str:#60a5fa; --easy:#a3e635; --rest:#3a3a3a; --test:#facc15;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;padding-bottom:40px}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+  header{padding:28px 0 18px;border-bottom:1px solid var(--line)}
+  .tag{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+  h1{font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:1;letter-spacing:1px;margin-top:6px}
+  h1 span{color:var(--accent)}
+  .sub{font-size:14px;color:var(--muted);margin-top:6px}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .stat b{display:block;font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.5px}
+  .stat small{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .paces{margin-top:16px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .paces h3,.legend h3{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+  .pace-row{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:'Space Mono',monospace;font-size:13px}
+  .pace-row span em{font-style:normal;color:var(--muted)}
+  .legend{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px 16px;font-size:12px;color:var(--muted)}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+  .week{margin-top:24px}
+  .week-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:8px}
+  .week-head h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.5px}
+  .week-head h2 small{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.06em;margin-left:8px}
+  .week-head .vol{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted)}
+  .badge{font-family:'Space Mono',monospace;font-size:10px;padding:2px 7px;border-radius:20px;border:1px solid var(--accent);color:var(--accent);margin-left:8px;vertical-align:4px}
+  .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+  .cell{background:var(--cell);border:1px solid var(--line);border-radius:10px;padding:9px 9px 10px;min-height:96px;cursor:pointer;position:relative;transition:border-color .15s, transform .15s}
+  .cell:hover{border-color:#444}
+  .cell.active{border-color:var(--accent);transform:translateY(-1px)}
+  .cell.rest{cursor:default;opacity:.55}
+  .cell .d{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+  .cell .bar{height:3px;border-radius:2px;margin:6px 0 7px}
+  .cell .t{font-size:13px;font-weight:700;line-height:1.25}
+  .cell .s{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px;line-height:1.35}
+  .cell.done::after{content:"✓";position:absolute;top:7px;right:9px;font-size:12px;color:var(--run)}
+  .cell.today{box-shadow:0 0 0 1px var(--accent) inset}
+
+  .detail{display:none;margin-top:8px;background:var(--panel);border:1px solid var(--accent);border-radius:12px;padding:16px}
+  .detail.open{display:block}
+  .detail .dh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .detail h4{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.5px;line-height:1}
+  .detail .when{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);margin-top:4px}
+  .detail button{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:4px 10px;font-family:'Space Mono',monospace;font-size:11px;cursor:pointer}
+  .detail .blk{margin-top:14px}
+  .detail .blk h5{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+  .detail ul{list-style:none}
+  .detail li{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .detail li:last-child{border-bottom:none}
+  .detail li span:last-child{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);text-align:right;white-space:nowrap}
+  .detail li a{color:var(--text);text-decoration:none;border-bottom:1px dotted #555}
+  .detail .note{margin-top:12px;font-family:'Space Mono',monospace;font-size:12px;color:var(--muted)}
+
+  footer{margin-top:32px;padding-top:16px;border-top:1px solid var(--line);font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);line-height:1.7}
+
+  @media (max-width:760px){
+    h1{font-size:44px}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .grid{grid-template-columns:1fr}
+    .cell{min-height:auto;display:grid;grid-template-columns:62px 1fr;column-gap:10px;align-items:center;padding:10px 12px}
+    .cell .d{grid-row:1/3}
+    .cell .bar{display:none}
+    .cell{border-left:4px solid var(--c,#333)}
+    .cell .s{margin-top:2px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="tag">Jay PT · HYROX Calendar · Block 1</div>
+    <h1>SOM <span>·</span> DOUBLES</h1>
+    <div class="sub">HYROX Open Doubles (Women) · Sun 14 Feb 2027 · 23 Nov – 3 Jan</div>
+    <div class="stats">
+      <div class="stat"><b id="countdown">—</b><small>Days to race</small></div>
+      <div class="stat"><b>SUB 1:40</b><small>Target finish</small></div>
+      <div class="stat"><b>4.05 KM</b><small>30-min test · 7:26/km</small></div>
+      <div class="stat"><b>4–5</b><small>Days / week</small></div>
+    </div>
+    <div class="paces">
+      <h3>Paces (provisional)</h3>
+      <div class="pace-row">
+        <span><em>All runs</em> 8:00–8:30/km</span>
+        <span><em>Walk</em> brisk</span>
+        <span><em>Strides</em> ~6:00/km</span>
+      </div>
+    </div>
+    <div class="legend">
+      <span><i style="background:var(--pt)"></i>PT with Jay</span>
+      <span><i style="background:var(--run)"></i>Run</span>
+      <span><i style="background:var(--easy)"></i>Easy run</span>
+      <span><i style="background:var(--str)"></i>Strength</span>
+      <span><i style="background:var(--test)"></i>Test</span>
+      <span><i style="background:var(--rest)"></i>Rest</span>
+    </div>
+  </header>
+
+  <main id="weeks"></main>
+
+  <footer>
+    Run:walk ratio = minutes running : minutes walking, repeated.<br>
+    Runs are time-based. Distances are estimates.<br>
+    Training days other than Monday are provisional.<br>
+    Pace reset after Sat 2 Jan.
+  </footer>
+</div>
+
+<script>
+const YT = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
+
+const MON_A = (sets, amrap) => ({
+  type:"pt", title:"PT with Jay", sub:"Weights + AMRAP " + amrap + "'",
+  blocks:[
+    {h:"Warm-up · 8 min", items:[["Treadmill walk","4 min"],["Leg swings","10/side"],["Glute bridge","10"],["Bodyweight squat","10"],["Inchworm","5"]]},
+    {h:"Part 1 · Weights", items:[
+      ["DB goblet squat", sets+" × 10"],["DB bench press", sets+" × 10"],["Cable row / 1-arm DB row", sets+" × 12"],
+      ["Leg curl machine", sets+" × 12"],["DB shoulder press", sets+" × 10"]], note:"Rest 60 s between sets · 3 min before Part 2"},
+    {h:"Part 2 · AMRAP " + amrap + " min", items:[
+      ["Treadmill run","200 m"],["DB thruster","× 10"],["DB walking lunge","× 10 steps"],
+      ["Step-back burpee + broad jump","× 5"],["DB farmer carry","30 m"]]},
+    {h:"Cool-down · 5 min", items:[["Walk","2 min"],["Hip flexor / hamstring / quad stretch","30 s each"]]}
+  ]
+});
+
+const THU = sets => ({
+  type:"str", title:"Strength", sub:"Gym · " + sets + " sets",
+  blocks:[{h:"Strength", items:[
+    ["Leg press", sets+" × 12"],["Lat pulldown", sets+" × 12"],["DB step-up", sets+" × 10/side"],
+    ["Seated DB shoulder press", sets+" × 10"],["DB farmer carry", sets+" × 30 m"],["Plank", sets+" × 30 s"]],
+    note:"Rest 60 s between sets"}]
+});
+
+const RUN = (title, sub, items, note, type="run") => ({type, title, sub, blocks:[{h:title, items, note}]});
+const REST = {type:"rest", title:"Rest", sub:""};
+
+const weeks = [
+  {n:1, start:"2026-11-23", vol:60, days:[
+    {...MON_A(3,15), done:true},
+    REST,
+    {...RUN("30-min run test","4.05 km · 7:26/km",[["Distance","4.05 km"],["Avg pace","7:26/km"],["Splits","7:08 / 6:48 / 7:51 / 7:54"],["Pattern","~4–5 min run / 1 min walk"]],"Completed Wed 25 Nov","test"), done:true},
+    THU(3), REST,
+    RUN("Run · 30 min","4:1 run:walk",[["6 × (4 min run + 1 min walk)","30 min"],["Run pace","8:00–8:30/km"],["Est. distance","~3.5 km"]]),
+    REST]},
+  {n:2, start:"2026-11-30", vol:65, days:[
+    MON_A(3,15), REST,
+    RUN("Run · 30 min","5:1 run:walk",[["5 × (5 min run + 1 min walk)","30 min"],["Run pace","8:00–8:30/km"],["Est. distance","~3.5 km"]]),
+    THU(3), REST,
+    RUN("Run · 35 min","6:1 run:walk",[["5 × (6 min run + 1 min walk)","35 min"],["Run pace","8:00–8:30/km"],["Est. distance","~4.2 km"]]),
+    REST]},
+  {n:3, start:"2026-12-07", vol:70, days:[
+    MON_A(3,15), REST,
+    RUN("Run · 30 min","8:1 run:walk",[["3 × (8 min run + 1 min walk)","27 min"],["+ run","3 min"],["Run pace","8:00–8:30/km"],["Est. distance","~3.6 km"]]),
+    THU(3), REST,
+    RUN("Run · 40 min","10:1 run:walk",[["3 × (10 min run + 1 min walk)","33 min"],["+ run","7 min"],["Run pace","8:00–8:30/km"],["Est. distance","~4.7 km"]]),
+    REST]},
+  {n:4, start:"2026-12-14", vol:60, deload:true, days:[
+    {...MON_A(2,10), sub:"Deload · 2 sets + AMRAP 10'"}, REST,
+    RUN("Run · 20 min","Continuous",[["Continuous","20 min"],["Pace","8:00–8:30/km"],["Est. distance","~2.4 km"]]),
+    THU(2),
+    RUN("Easy · 15 min","Continuous",[["Continuous","15 min"],["Pace","8:00–8:30/km"],["Est. distance","~1.8 km"]],null,"easy"),
+    RUN("Run · 25 min","Continuous",[["Continuous","25 min"],["Pace","8:00–8:30/km"],["Est. distance","~3.0 km"]]),
+    REST]},
+  {n:5, start:"2026-12-21", vol:77, days:[
+    MON_A(3,15), REST,
+    RUN("Run · 30 min","Continuous",[["Continuous","30 min"],["Pace","8:00–8:30/km"],["Est. distance","~3.6 km"]]),
+    THU(3),
+    RUN("Easy · 15 min","Continuous",[["Continuous","15 min"],["Pace","8:00–8:30/km"],["Est. distance","~1.8 km"]],null,"easy"),
+    RUN("Run · 32 min","Continuous",[["Continuous","32 min"],["Pace","8:00–8:30/km"],["Est. distance","~3.9 km"]]),
+    REST]},
+  {n:6, start:"2026-12-28", vol:83, days:[
+    MON_A(3,15), REST,
+    RUN("Run · 30 min + strides","Continuous + 4 × 20 s",[["Continuous","30 min"],["Pace","8:00–8:30/km"],["Strides","4 × 20 s @ ~6:00/km"],["Strides rest","60 s walk"]]),
+    THU(3),
+    RUN("Easy · 15 min","Continuous",[["Continuous","15 min"],["Pace","8:00–8:30/km"],["Est. distance","~1.8 km"]],null,"easy"),
+    RUN("Run · 38 min","Continuous",[["Continuous","38 min"],["Pace","8:00–8:30/km"],["Est. distance","~4.6 km"]],"Pace reset after this run"),
+    REST]},
+];
+
+const COLORS = {pt:"var(--pt)", run:"var(--run)", easy:"var(--easy)", str:"var(--str)", test:"var(--test)", rest:"var(--rest)"};
+const DOW = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const fmt = d => d.getDate() + " " + MONTHS[d.getMonth()];
+const iso = d => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const todayIso = iso(new Date());
+
+const race = new Date(2027,1,14);
+const now = new Date(); now.setHours(0,0,0,0);
+document.getElementById("countdown").textContent = Math.max(0, Math.round((race - now)/86400000));
+
+const root = document.getElementById("weeks");
+weeks.forEach((w, wi) => {
+  const [y,m,d] = w.start.split("-").map(Number);
+  const start = new Date(y, m-1, d);
+  const end = new Date(y, m-1, d+6);
+  const sec = document.createElement("section");
+  sec.className = "week";
+  sec.innerHTML = `<div class="week-head"><h2>Week ${w.n}${w.deload?'<span class="badge">DELOAD</span>':''}<small>${fmt(start)} – ${fmt(end)}</small></h2><div class="vol">Run ${w.vol} min</div></div>`;
+  const grid = document.createElement("div"); grid.className = "grid";
+  const panel = document.createElement("div"); panel.className = "detail";
+  w.days.forEach((s, di) => {
+    const date = new Date(y, m-1, d+di);
+    const c = document.createElement("div");
+    c.className = "cell" + (s.type==="rest"?" rest":"") + (s.done?" done":"") + (iso(date)===todayIso?" today":"");
+    c.style.setProperty("--c", COLORS[s.type]);
+    c.innerHTML = `<div class="d">${DOW[di]} ${fmt(date)}</div><div class="bar" style="background:${COLORS[s.type]}"></div><div class="t">${s.title}</div>${s.sub?`<div class="s">${s.sub}</div>`:""}`;
+    if (s.type !== "rest") {
+      c.addEventListener("click", () => {
+        const wasActive = c.classList.contains("active");
+        document.querySelectorAll(".cell.active").forEach(x => x.classList.remove("active"));
+        document.querySelectorAll(".detail.open").forEach(x => x.classList.remove("open"));
+        if (wasActive) return;
+        c.classList.add("active");
+        panel.innerHTML = `<div class="dh"><div><h4>${s.title}</h4><div class="when">${DOW[di]} ${fmt(date)} · Week ${w.n}</div></div><button type="button">Close</button></div>` +
+          s.blocks.map(b => `<div class="blk"><h5>${b.h}</h5><ul>${b.items.map(([a,v]) => `<li><span>${s.type==="pt"||s.type==="str" ? `<a href="${YT(a+' tutorial form')}" target="_blank" rel="noopener">${a}</a>` : a}</span><span>${v}</span></li>`).join("")}</ul>${b.note?`<div class="note">${b.note}</div>`:""}</div>`).join("");
+        panel.querySelector("button").addEventListener("click", () => { c.classList.remove("active"); panel.classList.remove("open"); });
+        panel.classList.add("open");
+        panel.scrollIntoView({behavior:"smooth", block:"nearest"});
+      });
+    }
+    grid.appendChild(c);
+  });
+  sec.appendChild(grid); sec.appendChild(panel);
+  root.appendChild(sec);
+});
+</script>
+</body>
+</html>
