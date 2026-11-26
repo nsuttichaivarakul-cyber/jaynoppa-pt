@@ -3,31 +3,227 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jay Noppa · HYROX & Hybrid Coach</title>
-<meta name="description" content="Jay Noppa: HYROX and hybrid athlete, certified personal trainer in Bangkok.">
+<title>Jay Noppa · Private HYROX Coaching</title>
+<meta name="description" content="Private HYROX and hybrid coaching in Bangkok with Jay Noppa, certified personal trainer. Limited places each season.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #111; color: #f2f2f2; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 32px 20px; }
-  .card { max-width: 440px; width: 100%; text-align: center; }
-  .tag { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #888; }
-  h1 { font-size: 44px; font-weight: 800; letter-spacing: -0.5px; margin-top: 10px; line-height: 1.05; }
-  .sub { font-size: 15px; color: #bbb; margin-top: 10px; }
-  .result { margin-top: 28px; border-top: 1px solid #2a2a2a; border-bottom: 1px solid #2a2a2a; padding: 18px 0; }
-  .result b { display: block; font-size: 40px; font-weight: 800; color: #e0218a; letter-spacing: 0.5px; }
-  .result span { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #888; }
-  .btn { display: inline-block; margin-top: 28px; background: #e0218a; color: #fff; text-decoration: none; font-weight: 700; padding: 14px 26px; border-radius: 999px; }
-  .btn:active { transform: scale(0.98); }
-  .foot { margin-top: 28px; font-size: 11px; color: #666; }
+  :root{
+    --bg:#0b0b0c; --bg2:#111113; --panel:#141416; --line:rgba(236,228,214,.12); --line2:rgba(236,228,214,.22);
+    --text:#ece4d6; --muted:#a39d93; --dim:#6f6a63;
+    --gold:#c9a96a; --gold2:#e6cf9c;
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+  .label{font-size:11px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
+  .rule{display:flex;align-items:center;gap:14px}
+  .rule::before{content:"";width:36px;height:1px;background:var(--gold)}
+  h2{font-family:var(--serif);font-weight:500;font-size:clamp(40px,5.4vw,64px);line-height:1.04;letter-spacing:-.01em;margin-top:18px;text-wrap:balance}
+  h2 em{font-style:italic;color:var(--gold2)}
+  .lead{color:var(--muted);font-size:17px;max-width:54ch;margin-top:18px}
+  .btn{display:inline-flex;align-items:center;gap:12px;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;padding:17px 28px;border:1px solid var(--gold);color:var(--bg);background:var(--gold);transition:background .25s,color .25s}
+  .btn:hover{background:transparent;color:var(--gold2)}
+  .btn.line{background:transparent;color:var(--text);border-color:var(--line2)}
+  .btn.line:hover{border-color:var(--gold);color:var(--gold2)}
+  .btn:focus-visible{outline:1px solid var(--gold2);outline-offset:4px}
+  section{padding:120px 0;border-top:1px solid var(--line)}
+
+  /* Nav */
+  .nav{position:absolute;top:0;left:0;right:0;z-index:5}
+  .nav .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:28px}
+  .mark{font-family:var(--serif);font-size:24px;letter-spacing:.06em}
+  .mark small{font-family:var(--sans);font-size:10px;letter-spacing:.32em;color:var(--muted);margin-left:10px;vertical-align:3px}
+  .nav a{font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;color:var(--muted)}
+  .nav a:hover{color:var(--gold2)}
+
+  /* Hero */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden;border-top:0;padding:0}
+  .hero-img{position:absolute;inset:0 0 0 38%}
+  .hero-img img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;filter:grayscale(.55) contrast(1.08) brightness(.82)}
+  .hero-img::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 0%,rgba(11,11,12,.75) 22%,rgba(11,11,12,.1) 60%),linear-gradient(0deg,var(--bg) 0%,transparent 40%)}
+  .hero .wrap{position:relative;z-index:2;padding-bottom:96px;padding-top:160px;width:100%}
+  .hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(64px,10vw,132px);line-height:.92;letter-spacing:-.015em;margin-top:26px}
+  .hero h1 em{font-style:italic;color:var(--gold2)}
+  .hero .lead{font-size:18px;max-width:44ch}
+  .ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px}
+  .stamp{display:flex;gap:40px;margin-top:64px;padding-top:28px;border-top:1px solid var(--line);max-width:560px}
+  .stamp div b{display:block;font-family:var(--serif);font-weight:500;font-size:40px;line-height:1;color:var(--text)}
+  .stamp div span{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+
+  /* Philosophy */
+  .quote{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(30px,4vw,46px);line-height:1.2;max-width:24ch;margin-top:22px}
+  .quote span{color:var(--gold2)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:end}
+
+  /* Experience */
+  .exp{display:grid;grid-template-columns:repeat(3,1fr);margin-top:64px;border-top:1px solid var(--line)}
+  .exp div{padding:36px 28px 8px 0;border-right:1px solid var(--line)}
+  .exp div+div{padding-left:28px}
+  .exp div:last-child{border-right:0}
+  .exp .num{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--gold)}
+  .exp h3{font-family:var(--serif);font-weight:500;font-size:30px;line-height:1.1;margin-top:10px}
+  .exp p{color:var(--muted);font-size:15px;margin-top:12px}
+
+  /* Result */
+  .result{display:grid;grid-template-columns:1.15fr .85fr;gap:72px;align-items:center}
+  .frame{position:relative}
+  .frame img{filter:grayscale(.4) contrast(1.05) brightness(.88)}
+  .frame.sharp img{filter:none}
+  .frame::after{content:"";position:absolute;inset:14px -14px -14px 14px;border:1px solid var(--gold);opacity:.45;z-index:-1}
+  .time{font-family:var(--serif);font-weight:500;font-size:clamp(96px,13vw,168px);line-height:.9;letter-spacing:-.02em;margin-top:18px}
+  .time-sub{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);margin-top:16px}
+
+  /* Included */
+  .incl{display:grid;grid-template-columns:repeat(2,1fr);gap:0 72px;margin-top:56px}
+  .incl li{list-style:none;display:grid;grid-template-columns:28px 1fr;gap:16px;padding:22px 0;border-bottom:1px solid var(--line)}
+  .incl li::before{content:"";width:10px;height:10px;border:1px solid var(--gold);transform:rotate(45deg);margin-top:9px}
+  .incl b{display:block;font-weight:600;font-size:16px}
+  .incl span{color:var(--muted);font-size:15px}
+
+  /* About */
+  .about{display:grid;grid-template-columns:.8fr 1.2fr;gap:80px;align-items:center}
+  .about .frame{max-width:400px}
+  .about .frame img{aspect-ratio:2/3;object-fit:cover;width:100%}
+  .sig{font-family:var(--serif);font-style:italic;font-size:30px;color:var(--gold2);margin-top:26px}
+
+  /* Apply */
+  .apply{text-align:center;padding:140px 0 120px;background:radial-gradient(ellipse at 50% 0%,rgba(201,169,106,.10),transparent 60%)}
+  .apply h2{font-size:clamp(48px,7vw,88px);margin-left:auto;margin-right:auto;max-width:14ch}
+  .apply .lead{margin:22px auto 0;text-align:center}
+  .apply .ctas{justify-content:center;margin-top:44px}
+  .apply .note{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);margin-top:28px}
+  footer{border-top:1px solid var(--line);padding:30px 0 44px}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
+
+  @media (max-width:880px){
+    section{padding:84px 0}
+    .hero{min-height:92vh}
+    .hero-img{inset:0}
+    .hero-img::after{background:linear-gradient(0deg,var(--bg) 8%,rgba(11,11,12,.55) 55%,rgba(11,11,12,.35) 100%)}
+    .two,.result,.about{grid-template-columns:1fr;gap:44px}
+    .exp{grid-template-columns:1fr}
+    .exp div,.exp div+div{padding:28px 0;border-right:0;border-bottom:1px solid var(--line)}
+    .incl{grid-template-columns:1fr}
+    .stamp{gap:28px}
+    .about .frame{max-width:none}
+    .frame::after{inset:10px -10px -10px 10px}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
 </style>
 </head>
 <body>
-  <div class="card">
-    <div class="tag">Personal Training · Bangkok</div>
-    <h1>Jay Noppa</h1>
-    <div class="sub">HYROX & Hybrid Athlete · Certified Personal Trainer</div>
-    <div class="result"><b>59:26</b><span>HYROX Doubles</span></div>
-    <a class="btn" href="https://www.instagram.com/jaynoppa/" target="_blank" rel="noopener">DM on Instagram</a>
-    <div class="foot">jaynoppa.fit</div>
+
+<nav class="nav">
+  <div class="wrap">
+    <div class="mark">Jay Noppa<small>PRIVATE COACHING</small></div>
+    <a href="https://www.instagram.com/jaynoppa/" target="_blank" rel="noopener">Instagram</a>
   </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-img"><img src="img/hero.jpg" alt="Jay running during a HYROX race" width="900" height="1950"></div>
+  <div class="wrap">
+    <div class="label rule">Private HYROX Coaching · Bangkok</div>
+    <h1>Train with<br><em>intent.</em></h1>
+    <p class="lead">One-to-one coaching for athletes who want to race HYROX well. A small number of clients, a plan built only for you, and a coach who races too.</p>
+    <div class="ctas">
+      <a class="btn" href="https://www.instagram.com/jaynoppa/" target="_blank" rel="noopener">Request a place</a>
+      <a class="btn line" href="#experience">The experience</a>
+    </div>
+    <div class="stamp">
+      <div><b>59:26</b><span>HYROX Doubles</span></div>
+      <div><b>1:1</b><span>Private coaching</span></div>
+      <div><b>CPT</b><span>Certified trainer</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="philosophy">
+  <div class="wrap two">
+    <div>
+      <div class="label rule">Philosophy</div>
+      <p class="quote">Fewer clients. <span>Better coaching.</span> Every session has a reason.</p>
+    </div>
+    <p class="lead">I keep my roster small on purpose. That means I know your splits, your sleep, your weak station and your race goal, and your plan changes when your week does.</p>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="label rule">The experience</div>
+    <h2>Three stages. <em>One race day.</em></h2>
+    <div class="exp">
+      <div><div class="num">i.</div><h3>Assess</h3><p>A run test and a station check set your true starting point and the paces we build from.</p></div>
+      <div><div class="num">ii.</div><h3>Build</h3><p>Private sessions with me plus a personal calendar for every other day, adjusted week by week.</p></div>
+      <div><div class="num">iii.</div><h3>Race</h3><p>Taper, pacing and a race-day plan, so you arrive fresh and finish knowing you raced well.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="result">
+  <div class="wrap result">
+    <div class="frame sharp"><img src="img/finish.jpg" alt="Jay and his doubles partner at the finish screen showing 0:59:26" width="1200" height="799" loading="lazy"></div>
+    <div>
+      <div class="label rule">Race result</div>
+      <div class="time">59:26</div>
+      <div class="time-sub">HYROX Doubles · Bangkok</div>
+      <p class="lead">Sub-sixty in doubles. I race what I coach, so every plan is tested on my own legs first.</p>
+    </div>
+  </div>
+</section>
+
+<section id="included">
+  <div class="wrap">
+    <div class="label rule">What's included</div>
+    <h2>Everything built <em>around you.</em></h2>
+    <ul class="incl">
+      <li><div><b>Private training page</b><span>Your own calendar on a private link, with sets, paces and demo videos for every day.</span></div></li>
+      <li><div><b>One-to-one sessions</b><span>In person in Bangkok: station technique, strength and race-specific work.</span></div></li>
+      <li><div><b>Weekly check-in</b><span>A direct line on LINE. Your plan moves when life does.</span></div></li>
+      <li><div><b>Race-day plan</b><span>Pacing per run and station, warm-up and taper, written for your race.</span></div></li>
+      <li><div><b>Progress testing</b><span>Regular retests so your paces follow your fitness, not the other way round.</span></div></li>
+      <li><div><b>Online option</b><span>The same coaching, delivered remotely, for athletes outside Bangkok.</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about">
+    <div class="frame"><img src="img/coach.jpg" alt="Jay raising his fist to the crowd during a HYROX race" width="720" height="1080" loading="lazy"></div>
+    <div>
+      <div class="label rule">Your coach</div>
+      <h2>Athlete first.<br><em>Coach always.</em></h2>
+      <p class="lead">I'm Jay, a HYROX and hybrid athlete and certified personal trainer in Bangkok. I train for the same races my clients do, from first-timers to sub-sixty doubles teams, and I coach the way I would want to be coached.</p>
+      <div class="sig">Jay Noppa</div>
+    </div>
+  </div>
+</section>
+
+<section class="apply" id="apply">
+  <div class="wrap">
+    <div class="label">By application</div>
+    <h2>Limited places <em>each season.</em></h2>
+    <p class="lead">Send me a message with your race, your goal and how you train today. I'll reply personally.</p>
+    <div class="ctas">
+      <a class="btn" href="https://www.instagram.com/jaynoppa/" target="_blank" rel="noopener">Message @jaynoppa</a>
+    </div>
+    <div class="note">Rates shared privately</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Jay Noppa · Private Coaching</span>
+    <span>jaynoppa.fit</span>
+  </div>
+</footer>
+
 </body>
 </html>
