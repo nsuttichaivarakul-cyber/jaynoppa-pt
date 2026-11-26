@@ -122,18 +122,9 @@
 <script>
 const YT = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
 
-const MON_A = (sets, amrap) => ({
-  type:"pt", title:"PT with Jay", sub:"Weights + AMRAP " + amrap + "'",
-  blocks:[
-    {h:"Warm-up · 8 min", items:[["Treadmill walk","4 min"],["Leg swings","10/side"],["Glute bridge","10"],["Bodyweight squat","10"],["Inchworm","5"]]},
-    {h:"Part 1 · Weights", items:[
-      ["DB goblet squat", sets+" × 10"],["DB bench press", sets+" × 10"],["Cable row / 1-arm DB row", sets+" × 12"],
-      ["Leg curl machine", sets+" × 12"],["DB shoulder press", sets+" × 10"]], note:"Rest 60 s between sets · 3 min before Part 2"},
-    {h:"Part 2 · AMRAP " + amrap + " min", items:[
-      ["Treadmill run","200 m"],["DB thruster","× 10"],["DB walking lunge","× 10 steps"],
-      ["Step-back burpee + broad jump","× 5"],["DB farmer carry","30 m"]]},
-    {h:"Cool-down · 5 min", items:[["Walk","2 min"],["Hip flexor / hamstring / quad stretch","30 s each"]]}
-  ]
+const MON_A = () => ({
+  type:"pt", title:"PT with Jay", sub:"Programmed with Jay on the day",
+  blocks:[{h:"PT with Jay", items:[["Session","Programmed with Jay on the day"]]}]
 });
 
 const THU = sets => ({
@@ -149,40 +140,40 @@ const REST = {type:"rest", title:"Rest", sub:""};
 
 const weeks = [
   {n:1, start:"2026-11-23", vol:60, days:[
-    {...MON_A(3,15), done:true},
+    {...MON_A(), done:true},
     REST,
     {...RUN("30-min run test","4.05 km · 7:26/km",[["Distance","4.05 km"],["Avg pace","7:26/km"],["Splits","7:08 / 6:48 / 7:51 / 7:54"],["Pattern","~4–5 min run / 1 min walk"]],"Completed Wed 25 Nov","test"), done:true},
     THU(3), REST,
     RUN("Run · 30 min","4:1 run:walk",[["6 × (4 min run + 1 min walk)","30 min"],["Run pace","8:00–8:30/km"],["Est. distance","~3.5 km"]]),
     REST]},
   {n:2, start:"2026-11-30", vol:65, days:[
-    MON_A(3,15), REST,
+    MON_A(), REST,
     RUN("Run · 30 min","5:1 run:walk",[["5 × (5 min run + 1 min walk)","30 min"],["Run pace","8:00–8:30/km"],["Est. distance","~3.5 km"]]),
     THU(3), REST,
     RUN("Run · 35 min","6:1 run:walk",[["5 × (6 min run + 1 min walk)","35 min"],["Run pace","8:00–8:30/km"],["Est. distance","~4.2 km"]]),
     REST]},
   {n:3, start:"2026-12-07", vol:70, days:[
-    MON_A(3,15), REST,
+    MON_A(), REST,
     RUN("Run · 30 min","8:1 run:walk",[["3 × (8 min run + 1 min walk)","27 min"],["+ run","3 min"],["Run pace","8:00–8:30/km"],["Est. distance","~3.6 km"]]),
     THU(3), REST,
     RUN("Run · 40 min","10:1 run:walk",[["3 × (10 min run + 1 min walk)","33 min"],["+ run","7 min"],["Run pace","8:00–8:30/km"],["Est. distance","~4.7 km"]]),
     REST]},
   {n:4, start:"2026-12-14", vol:60, deload:true, days:[
-    {...MON_A(2,10), sub:"Deload · 2 sets + AMRAP 10'"}, REST,
+    MON_A(), REST,
     RUN("Run · 20 min","Continuous",[["Continuous","20 min"],["Pace","8:00–8:30/km"],["Est. distance","~2.4 km"]]),
     THU(2),
     RUN("Easy · 15 min","Continuous",[["Continuous","15 min"],["Pace","8:00–8:30/km"],["Est. distance","~1.8 km"]],null,"easy"),
     RUN("Run · 25 min","Continuous",[["Continuous","25 min"],["Pace","8:00–8:30/km"],["Est. distance","~3.0 km"]]),
     REST]},
   {n:5, start:"2026-12-21", vol:77, days:[
-    MON_A(3,15), REST,
+    MON_A(), REST,
     RUN("Run · 30 min","Continuous",[["Continuous","30 min"],["Pace","8:00–8:30/km"],["Est. distance","~3.6 km"]]),
     THU(3),
     RUN("Easy · 15 min","Continuous",[["Continuous","15 min"],["Pace","8:00–8:30/km"],["Est. distance","~1.8 km"]],null,"easy"),
     RUN("Run · 32 min","Continuous",[["Continuous","32 min"],["Pace","8:00–8:30/km"],["Est. distance","~3.9 km"]]),
     REST]},
   {n:6, start:"2026-12-28", vol:83, days:[
-    MON_A(3,15), REST,
+    MON_A(), REST,
     RUN("Run · 30 min + strides","Continuous + 4 × 20 s",[["Continuous","30 min"],["Pace","8:00–8:30/km"],["Strides","4 × 20 s @ ~6:00/km"],["Strides rest","60 s walk"]]),
     THU(3),
     RUN("Easy · 15 min","Continuous",[["Continuous","15 min"],["Pace","8:00–8:30/km"],["Est. distance","~1.8 km"]],null,"easy"),
@@ -225,7 +216,7 @@ weeks.forEach((w, wi) => {
         if (wasActive) return;
         c.classList.add("active");
         panel.innerHTML = `<div class="dh"><div><h4>${s.title}</h4><div class="when">${DOW[di]} ${fmt(date)} · Week ${w.n}</div></div><button type="button">Close</button></div>` +
-          s.blocks.map(b => `<div class="blk"><h5>${b.h}</h5><ul>${b.items.map(([a,v]) => `<li><span>${s.type==="pt"||s.type==="str" ? `<a href="${YT(a+' tutorial form')}" target="_blank" rel="noopener">${a}</a>` : a}</span><span>${v}</span></li>`).join("")}</ul>${b.note?`<div class="note">${b.note}</div>`:""}</div>`).join("");
+          s.blocks.map(b => `<div class="blk"><h5>${b.h}</h5><ul>${b.items.map(([a,v]) => `<li><span>${s.type==="str" ?`<a href="${YT(a+' tutorial form')}" target="_blank" rel="noopener">${a}</a>` : a}</span><span>${v}</span></li>`).join("")}</ul>${b.note?`<div class="note">${b.note}</div>`:""}</div>`).join("");
         panel.querySelector("button").addEventListener("click", () => { c.classList.remove("active"); panel.classList.remove("open"); });
         panel.classList.add("open");
         panel.scrollIntoView({behavior:"smooth", block:"nearest"});
