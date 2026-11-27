@@ -1,0 +1,48 @@
+/* =========================================================
+   WhiteLab design tokens
+   Taken from the public @whitelabth / @itgirl.bywhitelab /
+   @skinn.bywhitelab profiles (Nov 2026). Swap the hex values
+   for the official CI codes once Thime's team sends them.
+   ========================================================= */
+:root {
+  /* WhiteLab master brand: soft sky blue circle + white wordmark */
+  --wl-sky: #b3d1ee;          /* logo circle */
+  --wl-sky-soft: #e8f2fc;     /* backgrounds */
+  --wl-sky-deep: #5f9bd3;     /* links, icons */
+  --wl-navy: #0f2a44;         /* headings, primary buttons */
+  --wl-ink: #33475b;          /* body text */
+  --wl-muted: #6b7f93;        /* secondary text */
+  --wl-white: #ffffff;
+  --wl-spark: #f6c445;        /* the ✨ "Smile with Confidence" sparkle */
+  --wl-line: #dde8f3;         /* borders */
+
+  /* Sub-brand accents */
+  --essentials: #3e9c8a;      /* 77 Essentials (no CI seen yet: placeholder sage) */
+  --essentials-soft: #e4f3ef;
+  --itgirl: #d94a6a;          /* It Girl / IT GUMMY script logo */
+  --itgirl-soft: #fce8ed;
+  --skinn: #c98e7b;           /* Skinn blush circle, deepened for text */
+  --skinn-soft: #f6e3dc;
+
+  /* Channel colours (for shop buttons) */
+  --tiktok: #111111;
+  --shopee: #ee4d2d;
+  --line: #06c755;
+
+  /* Type: Thai-friendly Google Fonts */
+  --font-head: "Prompt", "Noto Sans Thai", system-ui, sans-serif;
+  --font-body: "Noto Sans Thai", "Prompt", system-ui, sans-serif;
+  --font-logo: "Quicksand", "Prompt", sans-serif;
+
+  /* Shape and depth */
+  --radius-s: 10px;
+  --radius-m: 18px;
+  --radius-l: 28px;
+  --radius-pill: 999px;
+  --shadow-s: 0 2px 8px rgba(15, 42, 68, 0.06);
+  --shadow-m: 0 12px 32px rgba(15, 42, 68, 0.10);
+  --shadow-glow: 0 18px 60px rgba(95, 155, 211, 0.35);
+
+  --max: 1160px;
+  --gutter: 16px;
+}
