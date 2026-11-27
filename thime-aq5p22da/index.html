@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+<title>Thime · HYROX Doubles</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f7f5;--s2:#e3f1eb;--s3:#d6e6df;--s4:#b9d6ca;--accent:#1f8a6a;--accent2:#5cc3a0;--tint:#e8f5ef;--grad:linear-gradient(90deg,var(--accent),var(--accent2));--ink:#0a0a0a;--mute:#888}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh}
+.header{padding:28px 20px 18px;background:transparent;border-bottom:1px solid var(--s3)}
+.eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:#888;text-transform:uppercase}
+h1{font-family:'Bebas Neue',sans-serif;font-size:56px;letter-spacing:.02em;line-height:1;margin:6px 0 4px}
+.sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--mute);letter-spacing:.06em;line-height:1.6}
+.stats{display:flex;gap:22px;margin-top:16px;flex-wrap:wrap}
+.stat{border-left:2px solid #e0e0e0;padding-left:10px}
+.stat b{display:block;font-family:'Bebas Neue',sans-serif;font-size:26px;font-weight:400;color:#0a0a0a;line-height:1}
+.stat span{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--mute)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;padding:14px 20px 4px}
+.lg{display:flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:9px;color:#555;letter-spacing:.06em;text-transform:uppercase}
+.dot{width:8px;height:8px;border-radius:50%}
+.dot-int{background:var(--accent)}.dot-long{background:#888}.dot-easy{background:#cccccc}
+.dot-lift{background:var(--s4)}.dot-pt{background:#444}.dot-rest{background:var(--s3)}.dot-race{background:var(--grad)}
+.wrap{overflow-x:auto;padding:8px 12px 40px}
+.cal{min-width:760px}
+.head,.week-row .days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.head{padding:0 0 4px}
+.head div{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--mute);text-align:center}
+.week-row{margin-bottom:14px}
+.wk-top{display:flex;justify-content:space-between;align-items:baseline;padding:10px 4px 6px}
+.wk-top .l{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.04em}
+.wk-top .v{font-family:'Space Mono',monospace;font-size:10px;color:var(--mute)}
+.week-row.deload .wk-top{background:var(--grad);color:#fff;padding:8px 10px;border-radius:6px 6px 0 0}
+.week-row.deload .wk-top .v{color:#fff}
+.week-row.deload .day{background:#f6fbf9}
+.day{min-height:96px;background:#fff;border:1px solid var(--s3);border-radius:6px;padding:7px 6px;cursor:pointer;display:flex;flex-direction:column;gap:4px;transition:transform .1s}
+.day:active{transform:scale(.97)}
+.day.empty{background:transparent;border:1px dashed var(--s3);cursor:default}
+.day .dt{font-family:'Space Mono',monospace;font-size:9px;color:var(--mute)}
+.day .tag{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.06em;padding:2px 5px;border-radius:3px;align-self:flex-start;text-transform:uppercase;font-weight:700}
+.day .lb{font-size:11px;font-weight:700;line-height:1.25}
+.day .km{font-family:'Space Mono',monospace;font-size:9px;color:var(--mute);margin-top:auto}
+.t-interval{background:var(--s2)}.t-interval .tag{background:var(--accent);color:#fff}
+.t-easy .tag{background:rgba(0,0,0,.04);color:#888}
+.t-long{background:var(--tint)}.t-long .tag{background:rgba(0,0,0,.07);color:#444;border-left:2px solid #888}
+.t-lift .tag{background:var(--s3);color:#444}
+.t-station{background:var(--tint)}.t-station .tag{background:var(--ink);color:#fff}
+.t-rest{background:var(--bg)}.t-rest .tag{background:var(--s3);color:#777}.t-rest .lb{color:#999;font-weight:500}
+.t-race{border:2px solid var(--accent);background:var(--tint)}.t-race .tag{background:var(--grad);color:#fff}
+.day.open{outline:2px solid var(--accent)}
+.detail-panel{display:none;margin-top:6px;background:#fff;border:1px solid var(--s3);border-left:3px solid var(--accent);border-radius:6px;padding:14px 16px}
+.detail-panel.show{display:block}
+.dp-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.03em}
+.dp-meta{display:flex;gap:22px;margin:8px 0 10px;flex-wrap:wrap}
+.dp-meta div span{display:block;font-family:'Space Mono',monospace;font-size:8px;color:var(--mute);letter-spacing:.1em}
+.dp-meta div b{font-size:13px}
+.dp-list{list-style:none;font-size:13px;line-height:1.6;color:#333}
+.dp-list li{padding-left:14px;position:relative}
+.dp-list li:before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.foot{text-align:center;font-family:'Space Mono',monospace;font-size:9px;color:var(--mute);letter-spacing:.1em;padding:0 20px 36px}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="eyebrow">HYROX MEN'S DOUBLES · 11 WEEKS · 30 NOV – 14 FEB</div>
+  <h1>THIME</h1>
+  <div class="sub">RACE RUN PACE 4:40/KM · 2 THRESHOLD SESSIONS/WEEK · 3:1 BUILD/DELOAD</div>
+  <div class="stats">
+    <div class="stat"><b>4:40/KM</b><span>RACE RUN PACE</span></div>
+    <div class="stat"><b>TUE · THU</b><span>THRESHOLD</span></div>
+    <div class="stat"><b>SUN</b><span>HYROX CLASS</span></div>
+    <div class="stat"><b>14 FEB</b><span>HYROX</span></div>
+  </div>
+</div>
+<div class="legend">
+  <div class="lg"><span class="dot dot-int"></span>Threshold</div>
+  <div class="lg"><span class="dot dot-long"></span>Long</div>
+  <div class="lg"><span class="dot dot-easy"></span>Easy</div>
+  <div class="lg"><span class="dot dot-lift"></span>Weights</div>
+  <div class="lg"><span class="dot dot-pt"></span>Hyrox class</div>
+  <div class="lg"><span class="dot dot-rest"></span>Rest</div>
+  <div class="lg"><span class="dot dot-race"></span>Race</div>
+</div>
+<div class="wrap"><div class="cal">
+  <div class="head"><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div><div>SUN</div></div>
+  <div id="cal"></div>
+</div></div>
+<div class="foot">THIME · HYROX DOUBLES · 14 FEB 2027</div>
+<script>
+const WEEKS = [{"label": "WEEK 1 · 30 NOV–6 DEC", "vol": "~29–35 km + Sun", "deload": false, "days": [{"date": "30 Nov", "type": "lift", "tag": "LIFT", "label": "Weights", "pace": "", "km": "", "details": ["Own weight training session"]}, {"date": "1 Dec", "type": "interval", "tag": "THRESHOLD", "label": "4 × 6 min", "pace": "4:40–4:50/km", "km": "~8 km", "details": ["2 km warm-up, 4 × 6 min at 4:40–4:50/km, 2 min rest, 1 km cool-down"]}, {"date": "2 Dec", "type": "easy", "tag": "OPTIONAL", "label": "Optional easy 6 km", "pace": "6:20–6:40/km", "km": "6 km", "details": ["Optional: easy 6 km at 6:20–6:40/km", "Skip if legs are heavy: rest instead"]}, {"date": "3 Dec", "type": "interval", "tag": "THRESHOLD", "label": "5 × 1 km", "pace": "4:30–4:40/km", "km": "~9 km", "details": ["1.5 km warm-up, 5 × 1 km at 4:30–4:40/km, 2 min float jog between reps, 1.5 km cool-down"]}, {"date": "4 Dec", "type": "rest", "tag": "REST", "label": "Rest", "pace": "", "km": "", "details": ["Full rest"]}, {"date": "5 Dec", "type": "long", "tag": "LONG", "label": "Long run 75 min", "pace": "6:00–6:20/km", "km": "~12 km", "details": ["75 min at 6:00–6:20/km (about 12 km)"]}, {"date": "6 Dec", "type": "station", "tag": "HYROX CLASS", "label": "Hyrox class", "pace": "", "km": "", "details": ["Hyrox class with Jay"]}]}, {"label": "WEEK 2 · 7–13 DEC", "vol": "~30–36 km + Sun", "deload": false, "days": [{"date": "7 Dec", "type": "lift", "tag": "LIFT", "label": "Weights", "pace": "", "km": "", "details": ["Own weight training session"]}, {"date": "8 Dec", "type": "interval", "tag": "THRESHOLD", "label": "5 × 6 min", "pace": "4:40–4:50/km", "km": "~9 km", "details": ["2 km warm-up, 5 × 6 min at 4:40–4:50/km, 2 min rest, 1 km cool-down"]}, {"date": "9 Dec", "type": "easy", "tag": "OPTIONAL", "label": "Optional easy 6 km", "pace": "6:20–6:40/km", "km": "6 km", "details": ["Optional: easy 6 km at 6:20–6:40/km", "Skip if legs are heavy: rest instead"]}, {"date": "10 Dec", "type": "interval", "tag": "VO2MAX", "label": "8 × 400 m", "pace": "4:00–4:05/km", "km": "~8 km", "details": ["1.5 km warm-up, 8 × 400 m at 4:00–4:05/km (1:36–1:38 per 400 m), 90 sec float jog between reps, 1.5 km cool-down"]}, {"date": "11 Dec", "type": "rest", "tag": "REST", "label": "Rest", "pace": "", "km": "", "details": ["Full rest"]}, {"date": "12 Dec", "type": "long", "tag": "LONG", "label": "Long run 80 min", "pace": "6:00–6:20/km", "km": "~13 km", "details": ["80 min at 6:00–6:20/km (about 13 km)"]}, {"date": "13 Dec", "type": "station", "tag": "HYROX CLASS", "label": "Hyrox class", "pace": "", "km": "", "details": ["Hyrox class with Jay"]}]}, {"label": "WEEK 3 · 14–20 DEC", "vol": "~34–40 km + Sun", "deload": false, "days": [{"date": "14 Dec", "type": "lift", "tag": "LIFT", "label": "Weights", "pace": "", "km": "", "details": ["Own weight training session"]}, {"date": "15 Dec", "type": "interval", "tag": "THRESHOLD", "label": "5 × 6 min", "pace": "4:40–4:50/km", "km": "~9 km", "details": ["2 km warm-up, 5 × 6 min at 4:40–4:50/km, 2 min rest, 1 km cool-down"]}, {"date": "16 Dec", "type": "easy", "tag": "OPTIONAL", "label": "Optional easy 6 km", "pace": "6:20–6:40/km", "km": "6 km", "details": ["Optional: easy 6 km at 6:20–6:40/km", "Skip if legs are heavy: rest instead"]}, {"date": "17 Dec", "type": "interval", "tag": "THRESHOLD", "label": "6 × 1 km", "pace": "4:30–4:40/km", "km": "~10 km", "details": ["1.5 km warm-up, 6 × 1 km at 4:30–4:40/km, 2 min float jog between reps, 1.5 km cool-down"]}, {"date": "18 Dec", "type": "rest", "tag": "REST", "label": "Rest", "pace": "", "km": "", "details": ["Full rest"]}, {"date": "19 Dec", "type": "long", "tag": "LONG", "label": "Long run 85 min · finish strong", "pace": "6:00–6:20/km → 5:30–5:40", "km": "~15 km", "details": ["65 min at 6:00–6:20/km", "Last 20 min at 5:30–5:40/km", "About 15 km total"]}, {"date": "20 Dec", "type": "station", "tag": "HYROX CLASS", "label": "Hyrox class", "pace": "", "km": "", "details": ["Hyrox class with Jay"]}]}, {"label": "WEEK 4 · 21–27 DEC · DELOAD", "vol": "~24–29 km + Sun", "deload": true, "days": [{"date": "21 Dec", "type": "lift", "tag": "LIFT", "label": "Weights", "pace": "", "km": "", "details": ["Own weight training session"]}, {"date": "22 Dec", "type": "interval", "tag": "THRESHOLD", "label": "3 × 6 min", "pace": "4:40–4:50/km", "km": "~7 km", "details": ["2 km warm-up, 3 × 6 min at 4:40–4:50/km, 2 min rest, 1 km cool-down"]}, {"date": "23 Dec", "type": "easy", "tag": "OPTIONAL", "label": "Optional easy 5 km", "pace": "6:20–6:40/km", "km": "5 km", "details": ["Optional: easy 5 km at 6:20–6:40/km", "Skip if legs are heavy: rest instead"]}, {"date": "24 Dec", "type": "interval", "tag": "THRESHOLD", "label": "3 × 1 km", "pace": "4:30–4:40/km", "km": "~7 km", "details": ["1.5 km warm-up, 3 × 1 km at 4:30–4:40/km, 2 min float jog between reps, 1.5 km cool-down"]}, {"date": "25 Dec", "type": "rest", "tag": "REST", "label": "Rest", "pace": "", "km": "", "details": ["Full rest"]}, {"date": "26 Dec", "type": "long", "tag": "LONG", "label": "Long run 60 min", "pace": "6:00–6:20/km", "km": "~10 km", "details": ["60 min at 6:00–6:20/km (about 10 km)"]}, {"date": "27 Dec", "type": "station", "tag": "HYROX CLASS", "label": "Hyrox class", "pace": "", "km": "", "details": ["Hyrox class with Jay"]}]}, {"label": "WEEK 5 · 28 DEC–3 JAN", "vol": "~33–41 km + Sun", "deload": false, "days": [{"date": "28 Dec", "type": "lift", "tag": "LIFT", "label": "Weights", "pace": "", "km": "", "details": ["Own weight training session"]}, {"date": "29 Dec", "type": "interval", "tag": "THRESHOLD", "label": "5 × 6 min", "pace": "4:40–4:50/km", "km": "~9 km", "details": ["2 km warm-up, 5 × 6 min at 4:40–4:50/km, 2 min rest, 1 km cool-down"]}, {"date": "30 Dec", "type": "easy", "tag": "OPTIONAL", "label": "Optional easy 8 km", "pace": "6:20–6:40/km", "km": "8 km", "details": ["Optional: easy 8 km at 6:20–6:40/km", "Skip if legs are heavy: rest instead"]}, {"date": "31 Dec", "type": "interval", "tag": "THRESHOLD", "label": "6 × 1 km", "pace": "4:30–4:40/km", "km": "~10 km", "details": ["1.5 km warm-up, 6 × 1 km at 4:30–4:40/km, 2 min float jog between reps, 1.5 km cool-down"]}, {"date": "1 Jan", "type": "rest", "tag": "REST", "label": "Rest", "pace": "", "km": "", "details": ["Full rest"]}, {"date": "2 Jan", "type": "long", "tag": "LONG", "label": "Long run 85 min", "pace": "6:00–6:20/km", "km": "~14 km", "details": ["85 min at 6:00–6:20/km (about 14 km)"]}, {"date": "3 Jan", "type": "station", "tag": "HYROX CLASS", "label": "Hyrox class", "pace": "", "km": "", "details": ["Hyrox class with Jay"]}]}, {"label": "WEEK 6 · 4–10 JAN", "vol": "~33–41 km + Sun", "deload": false, "days": [{"date": "4 Jan", "type": "lift", "tag": "LIFT", "label": "Weights", "pace": "", "km": "", "details": ["Own weight training session"]}, {"date": "5 Jan", "type": "interval", "tag": "THRESHOLD", "label": "6 × 6 min", "pace": "4:40–4:50/km", "km": "~10 km", "details": ["2 km warm-up, 6 × 6 min at 4:40–4:50/km, 2 min rest, 1 km cool-down"]}, {"date": "6 Jan", "type": "easy", "tag": "OPTIONAL", "label": "Optional easy 8 km", "pace": "6:20–6:40/km", "km": "8 km", "details": ["Optional: easy 8 km at 6:20–6:40/km", "Skip if legs are heavy: rest instead"]}, {"date": "7 Jan", "type": "interval", "tag": "VO2MAX", "label": "8 × 400 m", "pace": "4:00–4:05/km", "km": "~8 km", "details": ["1.5 km warm-up, 8 × 400 m at 4:00–4:05/km (1:36–1:38 per 400 m), 90 sec float jog between reps, 1.5 km cool-down"]}, {"date": "8 Jan", "type": "rest", "tag": "REST", "label": "Rest", "pace": "", "km": "", "details": ["Full rest"]}, {"date": "9 Jan", "type": "long", "tag": "LONG", "label": "Long run 90 min", "pace": "6:00–6:20/km", "km": "~15 km", "details": ["90 min at 6:00–6:20/km (about 15 km)"]}, {"date": "10 Jan", "type": "station", "tag": "HYROX CLASS", "label": "Hyrox class", "pace": "", "km": "", "details": ["Hyrox class with Jay"]}]}, {"label": "WEEK 7 · 11–17 JAN", "vol": "~36–44 km + Sun", "deload": false, "days": [{"date": "11 Jan", "type": "lift", "tag": "LIFT", "label": "Weights", "pace": "", "km": "", "details": ["Own weight training session"]}, {"date": "12 Jan", "type": "interval", "tag": "THRESHOLD", "label": "6 × 6 min", "pace": "4:40–4:50/km", "km": "~10 km", "details": ["2 km warm-up, 6 × 6 min at 4:40–4:50/km, 2 min rest, 1 km cool-down"]}, {"date": "13 Jan", "type": "easy", "tag": "OPTIONAL", "label": "Optional easy 8 km", "pace": "6:20–6:40/km", "km": "8 km", "details": ["Optional: easy 8 km at 6:20–6:40/km", "Skip if legs are heavy: rest instead"]}, {"date": "14 Jan", "type": "interval", "tag": "THRESHOLD", "label": "6 × 1 km", "pace": "4:30–4:40/km", "km": "~10 km", "details": ["1.5 km warm-up, 6 × 1 km at 4:30–4:40/km, 2 min float jog between reps, 1.5 km cool-down"]}, {"date": "15 Jan", "type": "rest", "tag": "REST", "label": "Rest", "pace": "", "km": "", "details": ["Full rest"]}, {"date": "16 Jan", "type": "long", "tag": "LONG", "label": "Long run 95 min (peak) · finish strong", "pace": "6:00–6:20/km → 5:30–5:40", "km": "~16 km", "details": ["75 min at 6:00–6:20/km", "Last 20 min at 5:30–5:40/km", "About 16 km total"]}, {"date": "17 Jan", "type": "station", "tag": "HYROX CLASS", "label": "Hyrox class", "pace": "", "km": "", "details": ["Hyrox class with Jay"]}]}, {"label": "WEEK 8 · 18–24 JAN · DELOAD", "vol": "~27–32 km + Sun", "deload": true, "days": [{"date": "18 Jan", "type": "lift", "tag": "LIFT", "label": "Weights", "pace": "", "km": "", "details": ["Own weight training session"]}, {"date": "19 Jan", "type": "interval", "tag": "THRESHOLD", "label": "4 × 6 min", "pace": "4:40–4:50/km", "km": "~8 km", "details": ["2 km warm-up, 4 × 6 min at 4:40–4:50/km, 2 min rest, 1 km cool-down"]}, {"date": "20 Jan", "type": "easy", "tag": "OPTIONAL", "label": "Optional easy 5 km", "pace": "6:20–6:40/km", "km": "5 km", "details": ["Optional: easy 5 km at 6:20–6:40/km", "Skip if legs are heavy: rest instead"]}, {"date": "21 Jan", "type": "interval", "tag": "THRESHOLD", "label": "4 × 1 km", "pace": "4:30–4:40/km", "km": "~8 km", "details": ["1.5 km warm-up, 4 × 1 km at 4:30–4:40/km, 2 min float jog between reps, 1.5 km cool-down"]}, {"date": "22 Jan", "type": "rest", "tag": "REST", "label": "Rest", "pace": "", "km": "", "details": ["Full rest"]}, {"date": "23 Jan", "type": "long", "tag": "LONG", "label": "Long run 65 min", "pace": "6:00–6:20/km", "km": "~11 km", "details": ["65 min at 6:00–6:20/km (about 11 km)"]}, {"date": "24 Jan", "type": "station", "tag": "HYROX CLASS", "label": "Hyrox class", "pace": "", "km": "", "details": ["Hyrox class with Jay"]}]}, {"label": "WEEK 9 · 25–31 JAN", "vol": "~30–38 km + Sun", "deload": false, "days": [{"date": "25 Jan", "type": "lift", "tag": "LIFT", "label": "Weights", "pace": "", "km": "", "details": ["Own weight training session"]}, {"date": "26 Jan", "type": "interval", "tag": "THRESHOLD", "label": "5 × 6 min", "pace": "4:40–4:50/km", "km": "~9 km", "details": ["2 km warm-up, 5 × 6 min at 4:40–4:50/km, 2 min rest, 1 km cool-down"]}, {"date": "27 Jan", "type": "easy", "tag": "OPTIONAL", "label": "Optional easy 8 km", "pace": "6:20–6:40/km", "km": "8 km", "details": ["Optional: easy 8 km at 6:20–6:40/km", "Skip if legs are heavy: rest instead"]}, {"date": "28 Jan", "type": "interval", "tag": "VO2MAX", "label": "8 × 400 m", "pace": "4:00–4:05/km", "km": "~8 km", "details": ["1.5 km warm-up, 8 × 400 m at 4:00–4:05/km (1:36–1:38 per 400 m), 90 sec float jog between reps, 1.5 km cool-down"]}, {"date": "29 Jan", "type": "rest", "tag": "REST", "label": "Rest", "pace": "", "km": "", "details": ["Full rest"]}, {"date": "30 Jan", "type": "long", "tag": "LONG", "label": "Long run 80 min", "pace": "6:00–6:20/km", "km": "~13 km", "details": ["80 min at 6:00–6:20/km (about 13 km)"]}, {"date": "31 Jan", "type": "station", "tag": "HYROX CLASS", "label": "Hyrox class", "pace": "", "km": "", "details": ["Hyrox class with Jay"]}]}, {"label": "WEEK 10 · 1–7 FEB · TAPER", "vol": "~26–32 km + Sun", "deload": false, "days": [{"date": "1 Feb", "type": "lift", "tag": "LIFT", "label": "Weights", "pace": "", "km": "", "details": ["Own weight training session"]}, {"date": "2 Feb", "type": "interval", "tag": "THRESHOLD", "label": "4 × 6 min", "pace": "4:40–4:50/km", "km": "~8 km", "details": ["2 km warm-up, 4 × 6 min at 4:40–4:50/km, 2 min rest, 1 km cool-down"]}, {"date": "3 Feb", "type": "easy", "tag": "OPTIONAL", "label": "Optional easy 6 km", "pace": "6:20–6:40/km", "km": "6 km", "details": ["Optional: easy 6 km at 6:20–6:40/km", "Skip if legs are heavy: rest instead"]}, {"date": "4 Feb", "type": "interval", "tag": "THRESHOLD", "label": "4 × 1 km", "pace": "4:30–4:40/km", "km": "~8 km", "details": ["1.5 km warm-up, 4 × 1 km at 4:30–4:40/km, 2 min float jog between reps, 1.5 km cool-down"]}, {"date": "5 Feb", "type": "rest", "tag": "REST", "label": "Rest", "pace": "", "km": "", "details": ["Full rest"]}, {"date": "6 Feb", "type": "long", "tag": "LONG", "label": "Long run 60 min", "pace": "6:00–6:20/km", "km": "~10 km", "details": ["60 min at 6:00–6:20/km (about 10 km)"]}, {"date": "7 Feb", "type": "station", "tag": "HYROX CLASS", "label": "Hyrox class", "pace": "", "km": "", "details": ["Hyrox class with Jay"]}]}, {"label": "WEEK 11 · 8–14 FEB · RACE WEEK", "vol": "~16 km + race", "deload": false, "days": [{"date": "8 Feb", "type": "lift", "tag": "LIFT", "label": "Light weights", "pace": "", "km": "", "details": ["Light weight training session"]}, {"date": "9 Feb", "type": "interval", "tag": "THRESHOLD", "label": "3 × 6 min", "pace": "4:40–4:50/km", "km": "~7 km", "details": ["2 km warm-up, 3 × 6 min at 4:40–4:50/km, 2 min rest, 1 km cool-down"]}, {"date": "10 Feb", "type": "rest", "tag": "REST", "label": "Rest", "pace": "", "km": "", "details": ["Full rest"]}, {"date": "11 Feb", "type": "easy", "tag": "EASY", "label": "Easy 5 km + strides", "pace": "6:20–6:40/km", "km": "5 km", "details": ["Easy 5 km at 6:20–6:40/km", "Then 4 × 20 sec strides, 1 min walk"]}, {"date": "12 Feb", "type": "rest", "tag": "REST", "label": "Rest", "pace": "", "km": "", "details": ["Full rest"]}, {"date": "13 Feb", "type": "easy", "tag": "SHAKEOUT", "label": "Shakeout 20 min", "pace": "6:20–6:40/km", "km": "~4 km", "details": ["20 min at 6:20–6:40/km", "Then 3 × 1 min at 4:40/km, 1 min walk"]}, {"date": "14 Feb", "type": "race", "tag": "RACE", "label": "HYROX Doubles · race day", "pace": "4:40/km", "km": "8 km + 8 stations", "details": ["HYROX Men's Doubles with Jay", "Run target: 4:40/km for every 1 km run"]}]}];
+function esc(s){return String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+function render(){
+  const root=document.getElementById('cal');
+  root.innerHTML='';
+  WEEKS.forEach(function(w){
+    const row=document.createElement('div');
+    row.className='week-row'+(w.deload?' deload':'');
+    row.innerHTML='<div class="wk-top"><span class="l">'+esc(w.label)+'</span><span class="v">'+esc(w.vol)+'</span></div>';
+    const days=document.createElement('div');days.className='days';
+    const panel=document.createElement('div');panel.className='detail-panel';
+    let openEl=null;
+    w.days.forEach(function(d){
+      const el=document.createElement('div');
+      if(d===null){el.className='day empty';days.appendChild(el);return;}
+      el.className='day t-'+d.type;
+      el.innerHTML='<div class="dt">'+esc(d.date)+'</div><div class="tag">'+esc(d.tag)+'</div><div class="lb">'+esc(d.label)+'</div><div class="km">'+esc(d.km)+'</div>';
+      el.addEventListener('click',function(){
+        if(openEl===el){panel.classList.remove('show');el.classList.remove('open');openEl=null;return;}
+        if(openEl)openEl.classList.remove('open');
+        openEl=el;el.classList.add('open');
+        panel.innerHTML='<div class="dp-title">'+esc(d.date)+' · '+esc(d.label)+'</div>'+
+          '<div class="dp-meta"><div><span>PACE</span><b>'+esc(d.pace||'—')+'</b></div><div><span>VOLUME</span><b>'+esc(d.km||'—')+'</b></div><div><span>TYPE</span><b>'+esc(d.tag)+'</b></div></div>'+
+          '<ul class="dp-list">'+(d.details||[]).map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>';
+        panel.classList.add('show');
+      });
+      days.appendChild(el);
+    });
+    row.appendChild(days);row.appendChild(panel);
+    root.appendChild(row);
+  });
+}
+render();
+</script>
+</body>
+</html>
